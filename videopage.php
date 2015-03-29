@@ -1,6 +1,11 @@
+<?php
+$lines = file('files.txt');
+?>
+
 <html>
 <head>
   <title>Scraper player</title>
+  <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
   <script src="player.js"></script>
   <link href="style.css" rel="stylesheet"></link>
 </head>
@@ -15,13 +20,18 @@
          target="<?php echo $link; ?>" /> -->
 
 
-  <video id="audio" preload="auto" tabindex="0" controls="" >
-  <source src="">
+  <audio id="audio" preload="auto" tabindex="0" controls="" >
+    <source src="<?php echo $lines[0];?>">
    Your browser does not support the video tag.
-  </video>
+  </audio>
 
   <ul id="playlist">
 
+    <?php
+    foreach($lines as $link){
+      echo '<li><a href="'.$link.'">'.urldecode($link).'</a></li>';
+    }
+    ?>
   </ul>
 
 </body>

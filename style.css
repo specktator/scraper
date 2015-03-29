@@ -12,6 +12,9 @@ body{
   color:#5DB0E6;
   text-decoration:none;
 }
+li{
+  list-style:none;
+}
 li a{
   color:#eeeedd;
   background:#333;
