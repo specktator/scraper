@@ -16,7 +16,7 @@ class scrape {
     // $this-> dirpat = '/(?:.*)DIR(?:.*)<a\shref="(.*)\/"(?:.*)/';
     $this-> dirpat = '/href="(.*)\/(?=")/';
     // $this-> filepat = '/(?:.*)(VID|SND)(?:.*)<a\shref="([^\"\>]*)(?:)/';
-    $this-> filepat = '/href="(.*(.wav|.mp3|.mp4|.avi|.mkv))(?=")/';
+    $this-> filepat = '/href="(.*(.wav|.ogg|.mp3|.mp4|.avi|.mkv))(?=")/';
   }
 
   function getfolders(){
