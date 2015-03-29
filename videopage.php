@@ -7,6 +7,7 @@ $lines = file('files.txt');
   <title>Scraper player</title>
   <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
   <script src="player.js"></script>
+  <script src="search.js"></script>
   <link href="style.css" rel="stylesheet"></link>
 </head>
 
