@@ -12,24 +12,27 @@ $lines = file('files.txt');
 
 <body>
 
-<h1>Scraper player</h1>
+<h1>Scraper's player</h1>
 
 <!-- <embed type="application/x-vlc-plugin"
          name="video1"
          autoplay="no" loop="yes" width="400" height="300"
          target="<?php echo $link; ?>" /> -->
 
-
+  <div id="playertitle"><?php //echo basename(urldecode($lines[0])); ?></div>
   <audio id="audio" preload="auto" tabindex="0" controls="" >
-    <source src="<?php echo $lines[0];?>">
+    <source src="#<?php //echo $lines[0];?>">
    Your browser does not support the video tag.
   </audio>
-
+  <div id="search">
+    <input type"text" value="type to search">
+  </div>
   <ul id="playlist">
 
     <?php
     foreach($lines as $link){
-      echo '<li><a href="'.$link.'">'.urldecode($link).'</a></li>';
+      flush();
+      echo '<li><a href="'.urldecode(preg_replace('/\n/','',$link)).'">'.basename(urldecode($link)).'</a></li>';
     }
     ?>
   </ul>

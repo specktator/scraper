@@ -1,0 +1,5 @@
+{
+  "require" : {
+    "shubhamjain/php-id3": "dev-master"
+  }
+}

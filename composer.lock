@@ -1,0 +1,56 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "9746cff43cfca8ec98aefeab4b3729d0",
+    "packages": [
+        {
+            "name": "shubhamjain/php-id3",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/shubhamjain/PHP-ID3.git",
+                "reference": "679af31e27251694b80fd9bedcd703c21b64bd78"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/shubhamjain/PHP-ID3/zipball/679af31e27251694b80fd9bedcd703c21b64bd78",
+                "reference": "679af31e27251694b80fd9bedcd703c21b64bd78",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "PhpId3": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Shubham Jain",
+                    "email": "shubham.jain.1@gmail.com"
+                }
+            ],
+            "description": "A MP3 ID3 tags reader in native PHP",
+            "time": "2014-06-01 04:37:40"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "shubhamjain/php-id3": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}

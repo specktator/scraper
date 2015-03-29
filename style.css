@@ -1,13 +1,21 @@
+@font-face
+{
+  font-family: Orbitron;
+  src: url('fonts/Orbitron-Medium.ttf'),
+  url('fonts/Orbitron-Medium.ttf'); /* IE9 */
+}
 body{
   background-color:#242424;
-  font-family:orbitron;
+  font-family:Orbitron;
 }
-#playlist,audio{
+h1 {
+  color:white;
+}
+#playlist,audio,video,#search,#playertitle{
   background:#666;
-  width:400px;
+  width:1100px;
   padding:20px;
 }
-
 .active a{
   color:#5DB0E6;
   text-decoration:none;
@@ -23,4 +31,23 @@ li a{
 }
 li a:hover{
   text-decoration:none;
+}
+div#search{
+  margin: 15px 0px 15px 0px;
+  border-radius: 5px;
+}
+#search input{
+  width: 1095px;
+  border-radius: 5px;
+}
+#playertitle{
+  color:white;
+  height:177px;
+}
+audio,video{
+  display:block;
+}
+#playlist{
+  height: 489px;
+  overflow-y: scroll;
 }
