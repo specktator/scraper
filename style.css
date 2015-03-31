@@ -13,12 +13,14 @@ h1 {
 }
 #playlist,audio,video,#search,#playertitle{
   background:#666;
-  width:1100px;
+  width:600px;
   padding:20px;
+  float:left;
 }
 .active a{
   color:#5DB0E6;
   text-decoration:none;
+  border: 1px #5DB0E6 solid;
 }
 li{
   list-style:none;
@@ -37,12 +39,15 @@ div#search{
   border-radius: 5px;
 }
 #search input{
-  width: 1095px;
+  width: 600px;
   border-radius: 5px;
 }
 #playertitle{
   color:white;
   height:177px;
+}
+#playertitle ul li a{
+  cursor: help;
 }
 audio,video{
   display:block;
@@ -50,4 +55,25 @@ audio,video{
 #playlist{
   height: 489px;
   overflow-y: scroll;
+}
+#playlist li a {
+  margin-bottom: 1px; 
+}
+#playlist a:hover{
+  border: 1px #5DB0E6 solid;
+}
+#instantAnswer{
+  background: #666;
+  width: 600px;
+  max-width: 600px;
+  min-height: 600px;
+  padding: 20px;
+  float: right;
+}
+#iaul li {
+  color:#eeeedd;
+  background:#333;
+  padding:5px;
+  margin-bottom: 11px;
+  display:block;
 }

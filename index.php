@@ -21,6 +21,7 @@ $lines = file('files.txt');
   target="<?php echo $link; ?>" /> -->
 
   <div id="playertitle"><?php //echo basename(urldecode($lines[0])); ?></div>
+  <div id="instantAnswer"></div>
   <audio id="audio" preload="auto" tabindex="0" controls="" >
     <source src="#<?php //echo $lines[0];?>">
       Your browser does not support the video tag.
