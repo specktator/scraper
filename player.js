@@ -31,6 +31,7 @@ $(document).ready(function(){
       }else{
         link = playlist.find('a')[current];
       }
+      playlist.animate({scrollTop:$(link).position().top - $('#playlist li:first-child').position().top},"slow");
       run($(link),audio[0]);
       updatetitle($(link),title,instantAnswerobj);
     });
@@ -39,6 +40,7 @@ $(document).ready(function(){
     player.src = link.attr('href');
     par = link.parent();
     par.addClass('active').siblings().removeClass('active');
+    link.scrollTop();
     audio[0].load();
     audio[0].play();
 

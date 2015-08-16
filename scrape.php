@@ -2,69 +2,94 @@
 // ini_set('xdebug.profiler_enable',1);
 ini_set('display_errors',1);
 error_reporting(-1);
+include 'db.php';
 
 class scrape {
 
   public $urls;
-  public $src;
+  public $src;  // current source code scraping
+  public $ftypes; //file extentions pattern
+  public $ftype; //string declaring which file type the scraper should search for
+  public $audiopat = '.wav|.ogg|.mp3';
+  public $videopat = '.mp4|.avi|.mkv';
+  public $totalTracks = 0;
 
-  function __construct($targeturl = 'http://localhost'){
-    $this-> trailslashpat = '/\/$/'; // remove trailling slash if exists
-    $this-> target = preg_replace($this->trailslashpat,'',$targeturl,1); // and return the target url without it
-    $this-> src = file_get_contents($this-> target);
+  function __start($targeturl = 'http://localhost',$ftype='audio only'){
 
-    // $this-> dirpat = '/(?:.*)DIR(?:.*)<a\shref="(.*)\/"(?:.*)/';
-    $this-> dirpat = '/href="(.*)\/(?=")/';
-    // $this-> filepat = '/(?:.*)(VID|SND)(?:.*)<a\shref="([^\"\>]*)(?:)/';
-    $this-> filepat = '/href="(.*(.wav|.ogg|.mp3|.mp4|.avi|.mkv))(?=")/';
+    $this->ftype = $ftype;
+
+    if($this->ftype == 'audio only'){
+
+      $this->ftypes= $this->audiopat;
+
+    }elseif($this->ftype == 'video only'){
+
+      $this->ftypes=$this->videopat;
+
+    }elseif($this->ftype == 'both'){
+
+      $this->ftypes='.wav|.ogg|.mp3|.mp4|.avi|.mkv';
+
+    }else{
+      error_log('file type error');
+      die('file type error');
+    }
+
+    $this->trailslashpat = '/\/$/'; // remove trailling slash if exists
+    $this->target = preg_replace($this->trailslashpat,'',$targeturl,1); // and return the target url without it
+    $this->src = file_get_contents($this->target);
+    $this->debug = false;
+    $this->dirpat = '/href="(.*)\/(?=")/';
+    $this->filepat = '/href="(.*('.$this->ftypes.'))(?=")/';
+    $this->getfolders($this->target);
   }
 
-  function getfolders(){
-    preg_match_all($this-> dirpat,$this-> src, $this-> folders);
-    // var_dump($this-> folders);
-    if(count($this-> folders[1])>1){ // if there is not another folder getfiles()
+  function getfolders($target){
+    preg_match_all($this->dirpat,$this->src, $this->folders);
+    if(count($this->folders[1])>1){ // if there is not another folder getfiles()
       flush();
-      echo "<h1>Folders</h1>";
-      var_dump($this-> folders[1]);
+      if($this->debug) {echo json_encode(array("debug"=>"Folders()"));}
 
-      foreach ($this-> folders[1] as $index => $foldername) {
+      foreach ($this->folders[1] as $index => $foldername) {
         if ($index == '0' and strpos($foldername,'/') !== FALSE or empty($foldername)) {continue;}
-        $this-> foldername = $foldername;
-        // echo 'fname:'.$foldername;
-        echo "<h1>Folder scanning: ".$this-> target.'/'.urldecode($foldername)."</h1>";
-        $obint = new scrape($this-> target.'/'.$foldername);
-        $obint-> getfolders();
+        $this->foldername = $foldername;
+        if($this->debug) {echo json_encode(array("debug"=>"Scanning folder : ".$target.'/'.urldecode($foldername)));}
+        
+        $this->__start($target.'/'.$foldername);
+        $this->getfiles();
       }
+
     }
-    // var_dump($this-> folders);
-    $this-> getfiles();
   }
 
   function getfiles(){
 
-    preg_match_all($this-> filepat,$this-> src, $this-> files);
-    if(!empty($this-> files[1][0])){
-      echo "\n\n <h1>Get files()</h1>";
-      var_dump($this-> files[1]);
-      $handle = fopen('files.txt','a+');
-      foreach ($this-> files[1] as $index => $filename) {
+    preg_match_all($this->filepat,$this->src, $this->files);
+    if(!empty($this->files[1][0])){
+      if($this->debug) {echo json_encode(array("debug"=>"Get files()"));}
+      if($this->debug) {var_dump($this->files[1]);}
+      // $handle = fopen($this->dbfile,'a+');
+      unset($db);
+      $db = new db();
+      $db->audio()->read();
+      foreach ($this->files[1] as $index => $filename) {
 
-        fwrite($handle,$this-> target.'/'.$filename."\n");
+        if($this->debug) {echo json_encode(array("debug"=>"File: ".$this->target.'/'.$filename));}
+        $db->write_track($this->target.'/'.$filename);
 
       }
-      fclose($handle);
+      $db->write();
+      unset($db);
+      echo json_encode(array("total tracks"=>$this->totalTracks = count($this->files[1]) + $this->totalTracks));
     }
 
   }
 }
-echo '<style>h1{font-family:orbitron !important;}</style>';
 // http://chriscargile.com/music/music
 // http://www.w32hax0r.net/music/
 // http://transmission.specktator.net
-$obj = new scrape('http://chriscargile.com/music/music');
-$obj-> getfolders();
-echo "<h1>LINKS</h1>";
-$handle = fopen('files.txt','r');
-echo fread($handle,filesize('files.txt'));
-fclose($handle);
+
+$obj = new scrape();
+
+$obj->__start('http://chriscargile.com/music/music','audio only');
 ?>

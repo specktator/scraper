@@ -1,5 +1,8 @@
 <?php
-$lines = file('files.txt');
+include 'db.php';
+$db = new db();
+$db->audio()->read()->load_songs();
+$songs = $db->urls;
 ?>
 
 <html>
@@ -32,9 +35,9 @@ $lines = file('files.txt');
     <ul id="playlist">
 
       <?php
-      foreach($lines as $link){
+      foreach($songs as $link){
         flush();
-        echo '<li><a href="'.urldecode(preg_replace('/\n/','',$link)).'">'.basename(urldecode($link)).'</a></li>';
+        echo '<li><a href="'.urldecode(preg_replace('/\n/','',$link['url'])).'">'.basename(urldecode($link['title'])).'</a></li>';
       }
       ?>
     </ul>
