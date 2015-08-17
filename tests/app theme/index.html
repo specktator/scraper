@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<title>100% Height Fixed Sidebar + Content Area</title>
+		<meta name="generator" content="Bootply" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<!--[if lt IE 9]>
+			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<link href="css/styles.css" rel="stylesheet">
+	</head>
+	<body>
+        <div id="header" class="navbar navbar-default navbar-fixed-top">
+            <div class="navbar-header">
+                <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+                    <i class="icon-reorder"></i>
+                </button>
+                <a class="navbar-brand" href="#">
+                    Brand
+                </a>
+            </div>
+            <nav class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#">Navbar Item 1</a>
+                    </li>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Navbar Item 2<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Navbar Item2 - Sub Item 1</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">Navbar Item 3</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav pull-right">
+                    <li class="dropdown">
+                        <a href="#" id="nbAcctDD" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user"></i>Username<i class="icon-sort-down"></i></a>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a href="#">Log Out</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div id="wrapper">
+          <div id="sidebar-wrapper" class="col-md-1">
+                <div id="sidebar">
+                    <ul class="nav list-group">
+                        <li>
+                            <a class="list-group-item" href="#"><i class="icon-home icon-1x"></i>Sidebar Item 1</a>
+                        </li>
+                        <li>
+                            <a class="list-group-item" href="#"><i class="icon-home icon-1x"></i>Sidebar Item 2</a>
+                        </li>
+                        <li>
+                            <a class="list-group-item" href="#"><i class="icon-home icon-1x"></i>Sidebar Item 3</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div id="main-wrapper" class="col-md-11 pull-right">
+                <div id="main">
+                  <div class="page-header">
+                    <h3>Admin</h3>
+                  </div>
+                  <p></p>
+                </div>
+            </div>
+        </div>
+	<!-- script references -->
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+	</body>
+</html>

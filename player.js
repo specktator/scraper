@@ -1,6 +1,16 @@
+/*
+ * This is a JavaScript Scratchpad.
+ *
+ * Enter some JavaScript, then Right Click or choose from the Execute Menu:
+ * 1. Run to evaluate the selected text (Ctrl+R),
+ * 2. Inspect to bring up an Object Inspector on the result (Ctrl+I), or,
+ * 3. Display to insert the result in a comment after the selection. (Ctrl+L)
+ */
+
 var audio;
 var playlist;
 var tracks;
+var playcontrols;
 var current;
 var title;
 $(document).ready(function(){
@@ -11,12 +21,15 @@ $(document).ready(function(){
     playlist = $('#playlist');
     title = $("#playertitle");
     instantAnswerobj = $('#instantAnswer');
-    tracks = playlist.find('li a');
+    tracks = playlist.find('li > a');
     len = tracks.length - 1;
     audio[0].volume = .10;
     audio[0].play();
     playlist.find('a').click(function(event){
       link = $(this);
+      if(link.hasClass('control-play')){
+        link = $(this).parent().parent().parent().children('a');
+      }
       current = link.parent().index();
       run(link, audio[0]);
       updatetitle($(link),title,instantAnswerobj);
@@ -27,11 +40,11 @@ $(document).ready(function(){
       current++;
       if(current == len){
         current = 0;
-        link = playlist.find('a')[0];
+        link = playlist.find('.track')[0];
       }else{
-        link = playlist.find('a')[current];
+        link = playlist.find('.track')[current];
       }
-      playlist.animate({scrollTop:$(link).position().top - $('#playlist li:first-child').position().top},"slow");
+      playlist.animate({scrollTop:$(link).parent().position().top - $('#playlist li:first-child').position().top},"slow");
       run($(link),audio[0]);
       updatetitle($(link),title,instantAnswerobj);
     });

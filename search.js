@@ -1,9 +1,9 @@
 var tracks;
 $(document).ready(function () {
-  var tracks = $('#playlist li a');
+  var tracks = $('#playlist li > a');
   var input = $('#search input');
   input.on('keyup', function (event) {
-    tracks.hide();
+    tracks.parent().hide()
     var needle = input.val();
     if ( needle.length>=3 && event.which !== 17 && event.which !== 16 || needle.length == 0 ){
 
@@ -15,7 +15,7 @@ $(document).ready(function () {
       $.each(tracks, function (key, value) {
         if (regex.test(value) == true) {
           // console.log("index::"+key+"::"+$(this).html());
-          $(this).show();
+          $(this).parent().show()
         }
       });
       
