@@ -2,8 +2,8 @@
 ini_set('xdebug.profiler_enable',1);
 
 require 'vendor/autoload.php';
-include 'db.php';
 use PhpId3\Id3TagsReader;
+include 'db.php';
 
 try{
   // FIRST TRY LOCAL JSON DATABASE AND THEN INIT THE REQUEST
@@ -13,9 +13,15 @@ try{
   $title = $id3->getId3Array()['TIT2']['body'];
   $album = $id3->getId3Array()['TALB']['body'];
   // $albumart =
-  $db = new db();
-  $db->audio()->read()->write_tags($_REQUEST['id'],$artist,$title,$album)->write();
-  echo json_encode(array('artist'=>$artist,'title'=>$title,'album'=>$album));
+  if(!empty($artist) || !empty($title) || !empty($album)){
+    if(!empty($_REQUEST['id'])){
+      $db = new db();
+      $db->audio()->read()->write_tags($_REQUEST['id'],$artist,$title,$album)->write();
+    }
+    echo json_encode(array('artist'=>$artist,'title'=>$title,'album'=>$album));
+  }else{
+    echo json_encode(array('error'=>'Can\'t load ID3 tags'));
+  }
 }catch (Exception $e){
   echo json_encode(array('e'=>$e->getMessage(),'title'=>basename(urldecode($_REQUEST['url']))));
   // if track doent have valid id3 tags then leave it as is.

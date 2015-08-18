@@ -113,6 +113,9 @@ body {
   text-decoration:none;
   /*border: 1px #5DB0E6 solid;*/
 }
+.active .overlay{
+    border:4px solid #5DB0E6;
+}
 #playlist{
     overflow-y: scroll;
     height:98%;
@@ -125,7 +128,7 @@ ul#playlist li{
   float:left;
   color:#000000;
 }
-ul#playlist li a{
+ul#playlist li a.track{
   padding:5px;
   display:block;
   color:#000000;
@@ -135,9 +138,89 @@ ul#playlist li a:hover{
 }
 #playertitle{
   height:177px;
+  background-color:rgba(0, 0, 0, 0.40);
+  color:#FFF;
 }
 #playertitle ul li a{
   cursor: help;
+}
+#osd{
+  list-style: none;
+  color:white;
+  font-size: 1.1em;
+}
+#osd li{
+/*   float:left; */
+/*   margin-right:8%; */
+  
+  
+}
+#osd a {
+/*   color:white; */
+  margin-left: 6%;
+  text-overflow:ellipsis;
+}
+#search {
+  padding: 0.8%;
+  background-color:rgba(0, 0, 0, 0.58); /*#232C32*/
+  color:#FFF;
+}
+#search input{
+    border-color: #657789;
+    border-width:0px;
+    border-color:transparent;
+    border-bottom: 1px solid #627B8C;
+    color:#FFF;
+    background-color: transparent;
+    border-radius: 0px;
+    box-shadow: none;
+    width:88%;
+    float:left;
+}
+#search input:focus{
+    border-color:#627B8C;
+}
+#search p{
+    margin-top:12px;
+    float:right;
+    color:#627B8C;
+}
+#instantAnswer{
+    background-color: rgba(90, 106, 122, 0.3);
+
+}
+#instantAnswer ul{
+    list-style: none;
+}
+#iaul li {
+}
+#sidebar{
+  background-color: #181F24;
+}
+.list-group-item{
+  -webkit-transition: background-color 0.8s ease-out;
+  -moz-transition: background-color 0.8s ease-out;
+  -o-transition: background-color 0.8s ease-out;
+  transition: background-color 0.8s ease-out;
+  background-color: #181F24;
+  border-color: #3c3c3c;
+  /*color:#8CA1AF !important;*/
+}
+a.list-group-item{
+}
+a.list-group-item:hover{
+    background-color:rgba(44, 57, 66, 0.8) !important;
+    color: #fff;
+}
+a.list-group-item:focus{
+  background-color:rgba(131, 131, 131, 0.5) !important;
+   color:#fff;
+}
+#main-wrapper{
+    padding: 0px 0px 60px;
+}
+#sidebar-wrapper{
+    padding: 0px;
 }
 audio,video{
   display:block;
@@ -170,7 +253,7 @@ audio,video{
 }
 .overlay .control-play{
     position:absolute;
-    color:#9BADB9 !important;
+    color:#9BADB9;
     text-align: center;
     text-decoration: none;
 

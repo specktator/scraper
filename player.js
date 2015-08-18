@@ -66,7 +66,7 @@ $(document).ready(function(){
         title.html("Tags not provided.");
         title.html('Title: '+data.title);
       }else{
-        OSDdata= '<ul id="osd"><li>Artist: <a href="https://duckduckgo.com/?q='+data.artist+'" target="_blank" >'+data.artist+'</a></li><li> Title: <a href="https://duckduckgo.com/?q='+data.title+'" target="_blank">'+data.title+'</a></li><li> Album: <a href="https://duckduckgo.com/?q='+data.album+'" target="_blank">'+data.album+'</li></ul>';
+        OSDdata= '<ul id="osd" class="row"><li class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Artist: <a href="https://duckduckgo.com/?q='+data.artist+'" target="_blank" >'+data.artist+'</a></li><li class="col-lg-4 col-md-4 col-sm-12 col-xs-12"> Title: <a href="https://duckduckgo.com/?q='+data.title+'" target="_blank">'+data.title+'</a></li><li class="col-lg-4 col-md-4 col-sm-12 col-xs-12"> Album: <a href="https://duckduckgo.com/?q='+data.album+'" target="_blank">'+data.album+'</li></ul>';
         title.html(OSDdata);
         instantAnswer(data.artist,instantAnswerobj);
       }

@@ -20,7 +20,7 @@ $songs = $db->urls;
     <link href="tests/app theme/css/styles.css" rel="stylesheet">
   </head>
   <body>
-        <div id="header" class="navbar navbar-default navbar-fixed-top">
+        <!-- <div id="header" class="navbar navbar-default navbar-fixed-top">
             <div class="navbar-header">
                 <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".navbar-collapse">
                     <i class="icon-reorder"></i>
@@ -53,7 +53,7 @@ $songs = $db->urls;
                     </li>
                 </ul>
             </nav>
-        </div>
+        </div> -->
         <div id="wrapper">
           <div id="sidebar-wrapper" class="col-md-1">
                 <div id="sidebar">
@@ -91,17 +91,21 @@ $songs = $db->urls;
             </div>
         </div>
         <footer class="footer">
-          <div class="container">
-            <div class="col-md-5 col-sm-5 col-lg-5">
-              <audio id="audio" preload="auto" tabindex="0" controls="" >
-              <source src="#<?php //echo $lines[0];?>">
-              Your browser does not support the video tag.
-              </audio>
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+                <audio id="audio" preload="auto" tabindex="0" controls="" >
+                <source src="#<?php //echo $lines[0];?>">
+                Your browser does not support the video tag.
+                </audio>
+              </div>
+              <div id="playertitle" class="col-lg-5 col-md-5 col-sm-5 col-xs-12 "></div>
+              <div id="search" class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                <p><i class="icon-magnifier"></i></p>
+              <input class="form-control" type"text" placeholder="type to search">
+              </div>
             </div>
-            <div class="col-md-5 col-sm-5 col-lg-5"></div>
-            <div id="search" class="cold-md-2 col-lg-2 col-sm-2">
-            <input class="form-control" type"text" placeholder="type to search">
-            </div>
+
           </div>
         </footer>
   
