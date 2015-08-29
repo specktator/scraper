@@ -14,6 +14,7 @@ $songs = $db->urls;
     <meta name="generator" content="Bootply" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href="tests/app theme/css/bootstrap.min.css" rel="stylesheet">
+    <link href="tests/app theme/css/bootstrap-slider.min.css" rel="stylesheet">
     <!--[if lt IE 9]>
       <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -59,16 +60,16 @@ $songs = $db->urls;
                 <div id="sidebar">
                     <ul class="nav list-group">
                         <li>
-                            <a class="list-group-item" href="#"><i class="icon-music-tone-alt icon-1x"></i> Songs</a>
+                            <a class="list-group-item" href="#"><i class="icon-music-tone-alt icon-1x text-success"></i> Songs</a>
                         </li>
                         <li>
-                            <a class="list-group-item" href="#"><i class="icon-playlist icon-1x"></i> Playlists</a>
+                            <a class="list-group-item" href="#"><i class="icon-playlist icon-1x text-warning"></i> Playlists</a>
                         </li>
                         <li>
-                            <a class="list-group-item" href="#"><i class="icon-users icon-1x"></i> Artists</a>
+                            <a class="list-group-item" href="#"><i class="icon-users icon-1x text-danger"></i> Artists</a>
                         </li>
                         <li>
-                            <a class="list-group-item" href="#"><i class="icon-music-tone icon-1x"></i> Genres</a>
+                            <a class="list-group-item" href="#"><i class="icon-music-tone icon-1x text-info"></i> Genres</a>
                         </li>
                     </ul>
                 </div>
@@ -83,7 +84,7 @@ $songs = $db->urls;
                     <?php
                     foreach($songs as $link){
                       flush();
-                      echo '<li class="col-lg-2 col-md-2 col-sm-6 col-xs-6"><div class="albumart img-thumbnail"><div class="overlay"><a href="#" class="control-play control-center"><i class="icon-control-play"></i></a></div><img class="img-responsive" src="tests/app theme/images/img1.jpg" /></div><a class="track" href="'.urldecode(preg_replace('/\n/','',$link['url'])).'"><div class="title">'.basename(urldecode($link['title'])).'</div></a></li>';
+                      echo '<li class="col-lg-2 col-md-2 col-sm-6 col-xs-6"><div class="albumart img-thumbnail"><div class="overlay"><a href="#" class="control-play control-center"><i class="icon-control-play"></i><i class="icon-control-pause" style="display:none;"></i></a></div><img class="img-responsive" src="tests/app theme/images/img1.jpg" /></div><a class="track" href="'.urldecode(preg_replace('/\n/','',$link['url'])).'"><div class="title">'.basename(urldecode($link['title'])).'</div></a></li>';
                     }
                     ?>
                   </ul>
@@ -93,13 +94,50 @@ $songs = $db->urls;
         <footer class="footer">
           <div class="container-fluid">
             <div class="row">
-              <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
-                <audio id="audio" preload="auto" tabindex="0" controls="" >
-                <source src="#<?php //echo $lines[0];?>">
-                Your browser does not support the video tag.
-                </audio>
+              <div id="audio_container" class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div id="player" class="row"> <!-- audio player start-->
+                  <div id="albumart_container" class="hide">
+                    <img id="player_albumart" src="" alt="">
+                  </div>
+                  <div id="asset_controls" class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <a id="rewind" href="#"><i class="icon-control-rewind"></i></a>
+                    <a id="play" href="#"><i id="play_icon" class="icon-control-play"></i><i id="pause_icon" class="icon-control-pause" style="display:none;"></i></a>
+                    <a id="forward" href="#"><i class="icon-control-forward"></i></a>
+                    <a id="playlist_control" href="#"><i class="icon-playlist"></i></a>
+                    <div id="playlist" class="hide">
+                      <ul class="playlist_tracks">
+                        <li class="playlist_track"><i class="icon-control-play"></i></li>
+                        <li class="playlist_track"><i class="icon-control-play"></i></li>
+                        <li class="playlist_track"><i class="icon-control-play"></i></li>
+                        <li class="playlist_track"><i class="icon-control-play"></i></li>
+                        <li class="playlist_track"><i class="icon-control-play"></i></li>
+                      </ul>
+                    </div>
+                  </div><!-- asset controls -->
+                  <div id="seek" class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                    <input id="seek_slider" data-slider-id='seek_slider' type="text" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="0"/>
+                  </div> <!-- seek controls -->
+                  <div id="secondary_controls" class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                    <div id="secondary_controls_wrapper" class="row">
+                      <div id="current_time" class="col-lg-2 col-md-2 col-sm-2 col-xs-2">00:00</div>
+                      <div id="total_time" class="col-lg-2 col-md-2 col-sm-2 col-xs-2">00:00</div>
+                      <div id="volume_container" class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                        <a id="volume" href="#" class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><i id="volume_low" class="icon-volume-1"></i><i id="volume_high" class="icon-volume-2" style="display:none;"></i><i id="volume_mute" class="icon-volume-off" style="display:none;"></i></a>
+                        <div id="volume_slider_container" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                          <input id="volume_slider" data-slider-id='volume_slider' type="text" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="40"/>
+                        </div>
+                      </div>
+                      <div id="custom_controls" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                        <div id="custom_controls_wrapper" class="row">
+                          <a id="random" href="#" class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><i class="icon-shuffle"></i></a>
+                          <a id="repeat" href="#" class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><i class="icon-loop"></i></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div> <!--secondary controls -->
+                </div><!-- audio player end-->
               </div>
-              <div id="playertitle" class="col-lg-5 col-md-5 col-sm-5 col-xs-12 "></div>
+              <div id="playertitle" class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
               <div id="search" class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
                 <p><i class="icon-magnifier"></i></p>
               <input class="form-control" type"text" placeholder="type to search">
@@ -113,6 +151,7 @@ $songs = $db->urls;
   <!-- script references -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
     <script src="tests/app theme/js/bootstrap.min.js"></script>
+    <script src="tests/app theme/js/bootstrap-slider.min.js"></script>
     <script src="player.js"></script>
     <script src="search.js"></script>
     <script src="controls.js"></script>

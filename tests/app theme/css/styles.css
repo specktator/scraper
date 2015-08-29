@@ -108,13 +108,22 @@ body {
 	}
 }
 /* custom */
-.active a{
+/*.active a{
   color:#5DB0E6 !important;
+  text-decoration:none;
+
+}*/
+.active a{
+  color: #42DB44 !important;
   text-decoration:none;
   /*border: 1px #5DB0E6 solid;*/
 }
+/*
 .active .overlay{
     border:4px solid #5DB0E6;
+}*/
+.active .overlay{
+    border:4px solid #42DB44;
 }
 #playlist{
     overflow-y: scroll;
@@ -197,6 +206,19 @@ ul#playlist li a:hover{
 #sidebar{
   background-color: #181F24;
 }
+.text-success{
+    color: #42DB44;
+}
+.text-warning{
+    color: #CB8B1E;
+}
+.text-danger{
+    color: #CE2724;
+}
+.text-info{
+    color: #2194CC;
+}
+
 .list-group-item{
   -webkit-transition: background-color 0.8s ease-out;
   -moz-transition: background-color 0.8s ease-out;
@@ -248,8 +270,9 @@ audio,video{
     background-color: rgba(0, 0, 0, 0.75);
     display: none;
     border-radius: 4px;
-    color:#9BADB9;
+    color:#2194CC;
     /* color:#428BCA; */
+    border:4px solid #9BADB9;
 }
 .overlay .control-play{
     position:absolute;
@@ -272,6 +295,63 @@ audio,video{
     display: block;
     text-overflow: ellipsis;
     overflow: hidden;
+    font-size: 16px;
+}
+#player{
+  padding: 20px 0 0 0 ;
+}
+#player i{
+  color:#FFFFFF;
+  font-size: 1.4em;
+}
+#albumart_container{}
+#player_albumart{}
+#asset_controls{
+  padding-top: 3px;
+  padding-right: 3px;
+}
+#custom_controls a{
+    font-size: 12px;
+}
+#custom_controls_wrapper{
+    padding-top: 3px;
+}
+#volume_slider{
+  width:78px;
+}
+#volume{
+    padding-top: 3px;
+}
+#seek_slider{
+    width:100%;
+}
+.slider-handle{
+  background-color: #595959;
+  background-image: none;
+  width:10px;
+  height:10px;
+}
+.slider-handle.round{
+  border-radius: 0px !important;
+}
+.slider.slider-horizontal .slider-handle{
+    margin-top: 0px;
+    box-shadow: none;
+}
+.slider-track{
+  border-radius: 0px;
+  background-color:#778490;
+  box-shadow: 0px;
+}
+.slider-selection{
+    border-radius: 0px;
+    background-color: rgb(51, 150, 0);
+}
+#seek_slider .slider-track{
+  background-color: #4CB6CB;
+}
+#repeat{
+    padding-top:3px;
 }
 .icon-user-female, .icon-user-follow, .icon-user-following, .icon-user-unfollow, .icon-trophy, .icon-screen-smartphone, .icon-screen-desktop, .icon-plane, .icon-notebook, .icon-moustache, .icon-mouse, .icon-magnet, .icon-energy, .icon-emoticon-smile, .icon-disc, .icon-cursor-move, .icon-crop, .icon-credit-card, .icon-chemistry, .icon-user, .icon-speedometer, .icon-social-youtube, .icon-social-twitter, .icon-social-tumblr, .icon-social-facebook, .icon-social-dropbox, .icon-social-dribbble, .icon-shield, .icon-screen-tablet, .icon-magic-wand, .icon-hourglass, .icon-graduation, .icon-ghost, .icon-game-controller, .icon-fire, .icon-eyeglasses, .icon-envelope-open, .icon-envelope-letter, .icon-bell, .icon-badge, .icon-anchor, .icon-wallet, .icon-vector, .icon-speech, .icon-puzzle, .icon-printer, .icon-present, .icon-playlist, .icon-pin, .icon-picture, .icon-map, .icon-layers, .icon-handbag, .icon-globe-alt, .icon-globe, .icon-frame, .icon-folder-alt, .icon-film, .icon-feed, .icon-earphones-alt, .icon-earphones, .icon-drop, .icon-drawer, .icon-docs, .icon-directions, .icon-direction, .icon-diamond, .icon-cup, .icon-compass, .icon-call-out, .icon-call-in, .icon-call-end, .icon-calculator, .icon-bubbles, .icon-briefcase, .icon-book-open, .icon-basket-loaded, .icon-basket, .icon-bag, .icon-action-undo, .icon-action-redo, .icon-wrench, .icon-umbrella, .icon-trash, .icon-tag, .icon-support, .icon-size-fullscreen, .icon-size-actual, .icon-shuffle, .icon-share-alt, .icon-share, .icon-rocket, .icon-question, .icon-pie-chart, .icon-pencil, .icon-note, .icon-music-tone-alt, .icon-music-tone, .icon-microphone, .icon-loop, .icon-logout, .icon-login, .icon-list, .icon-like, .icon-home, .icon-grid, .icon-graph, .icon-equalizer, .icon-dislike, .icon-cursor, .icon-control-start, .icon-control-rewind, .icon-control-play, .icon-control-pause, .icon-control-forward, .icon-control-end, .icon-calendar, .icon-bulb, .icon-bar-chart, .icon-arrow-up, .icon-arrow-right, .icon-arrow-left, .icon-arrow-down, .icon-ban, .icon-bubble, .icon-camcorder, .icon-camera, .icon-check, .icon-clock, .icon-close, .icon-cloud-download, .icon-cloud-upload, .icon-doc, .icon-envelope, .icon-eye, .icon-flag, .icon-folder, .icon-heart, .icon-info, .icon-key, .icon-link, .icon-lock, .icon-lock-open, .icon-magnifier, .icon-magnifier-add, .icon-magnifier-remove, .icon-paper-clip, .icon-paper-plane, .icon-plus, .icon-pointer, .icon-power, .icon-refresh, .icon-reload, .icon-settings, .icon-star, .icon-symbol-female, .icon-symbol-male, .icon-target, .icon-volume-1, .icon-volume-2, .icon-volume-off, .icon-users {
     font-family: "Simple-Line-Icons" !important;
