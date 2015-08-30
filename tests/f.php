@@ -1,45 +1,40 @@
+<html>
+<head>
+	<meta charset="utf-8">
+</head>
 <?php
-class Employee
-{
-    public $name;
-    public $surName; 
-    public $salary;
+// ini_set('xdebug.profiler_enable',1);
+ini_set('display_errors',1);
+ini_set('memory_limit','-1');
+error_reporting(-1);
+include '../config.php';
 
-    public function setName($name)
-    {
-        $this->name = $name;
+// $_REQUEST['type'] = 'instantAnswer';
+// $_REQUEST['q'] = 'archive';
 
-        return $this;
-    }
+// $ddg = new ddg();
+// var_dump($ddg->result);
+// 
+// if($ddg->result->Heading){
+// 	foreach ($ddg->result->RelatedTopics as $key => $value) {
+// 		if(@$value->Topics && @$value->Name === 'Music')
+// 			$music = $value;
+// 	}
+// 	var_dump($music->Topics[0]);
+// 	$img = new img();
+// 	echo "<img src=\"{$music->Topics[0]->Icon->URL}\">";
+// }
 
-    public function setSurname($surname)
-    {
-        $this->surName = $surname;
 
-        return $this;
-    }
+$db = new db();
+$db->audio()->read();
 
-    public function setSalary($salary)
-    {
-        $this->salary = $salary;
-
-        return $this;
-    }
-
-    public function __toString()
-    {
-        $employeeInfo = 'Name: ' . $this->name . PHP_EOL;
-        $employeeInfo .= 'Surname: ' . $this->surName . PHP_EOL;
-        $employeeInfo .= 'Salary: ' . $this->salary . PHP_EOL;
-
-        return $employeeInfo;
-    }
+foreach ($db->records->tracks as $key => $value) {
+	if($value->tags){
+		var_dump($value);
+		
+	}
 }
 
-# Create a new instance of the Employee class:
-$employee = new Employee();
-
-# Employee Tom Smith has a salary of 100:
-echo $employee->setName('Tom')
-              ->setSurname('Smith')
-              ->setSalary('100');
+?>
+</html>

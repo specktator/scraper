@@ -1,2 +1,8 @@
 *.mp4
 *.mp3
+*.sublime-project
+*.sublime-workspace
+*.commit
+music/**
+video/**
+images/**

@@ -1,0 +1,24 @@
+.slider-handle{
+  background-color: #595959;
+  background-image: none;
+  width:10px;
+  height:10px;
+}
+.slider-handle.round{
+  border-radius: 0px !important;
+}
+.slider.slider-horizontal .slider-handle{
+  margin-top:0px;
+  box-shadow: none;
+}
+.slider.slider-horizontal .slider-handle{
+      margin-top: 0px;
+}
+.slider-track{
+  border-radius: 0px;
+  background-color:#778490;
+  box-shadow: 0px;
+}
+#seek_slider.slider-track{
+  background-color: #4CB6CB;
+}

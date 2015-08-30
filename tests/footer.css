@@ -1,0 +1,41 @@
+#playertitle{
+  background-color:rgba(0, 0, 0, 0.40);
+}
+#osd{
+  list-style: none;
+  color:white;
+  font-size: 1.1em;
+}
+#osd li{
+/*   float:left; */
+/*   margin-right:8%; */
+  
+  
+}
+#osd a {
+/*   color:white; */
+  margin-left: 6%;
+  text-overflow:ellipsis;
+}
+#search {
+  padding: 0.8%;
+  background-color:rgba(0, 0, 0, 0.58); /*#232C32*/
+  color:#FFF;
+}
+#search input{
+  border-color: #657789;
+  border-width:0px;
+  border-color:transparent;
+  border-bottom: 1px solid #EAEEF1;
+  color:#FFF;
+  background-color: transparent;
+  border-radius: 0px;
+  box-shadow: none;
+}
+.fa {
+    display: inline-block;
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+}

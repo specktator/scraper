@@ -1,0 +1,1274 @@
+@font-face {
+    font-family: 'Glyphicons Halflings';
+    src: url(../fonts/glyphicons-halflings-regular.eot);
+    src: url(../fonts/glyphicons-halflings-regular.eot?#iefix) format("embedded-opentype"), url(../fonts/glyphicons-halflings-regular.woff) format("woff"), url(../fonts/glyphicons-halflings-regular.ttf) format("truetype"), url(../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular) format("svg")
+}
+
+@font-face {
+    font-family: 'Simple-Line-Icons';
+    src: url(../fonts/Simple-Line-Icons.eot);
+    src: url(../fonts/Simple-Line-Icons.eot?#iefix) format("embedded-opentype"), url(../fonts/Simple-Line-Icons.woff) format("woff"), url(../fonts/Simple`-Line-Icons.ttf) format("truetype"), url(../fonts/Simple-Line-Icons.svg#Simple-Line-Icons) format("svg");
+    font-weight: 400;
+    font-style: normal
+}
+
+@font-face {
+    font-family: 'Source Sans Pro';
+    font-style: normal;
+    font-weight: 300;
+    src: local('Source Sans Pro Light'), local(SourceSansPro-Light), url(../fonts/sourcesanspro-light.woff) format("woff")
+}
+
+@font-face {
+    font-family: 'Source Sans Pro';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Source Sans Pro'), local(SourceSansPro-Regular), url(../fonts/sourcesanspro.woff) format("woff")
+}
+
+@font-face {
+    font-family: 'Source Sans Pro';
+    font-style: normal;
+    font-weight: 700;
+    src: local('Source Sans Pro Bold'), local(SourceSansPro-Bold), url(../fonts/sourcesanspro-bold.woff) format("woff")
+}
+
+html {
+    font-family: "Source Sans Pro" !important;
+}
+
+body {
+    padding-top: 50px;
+    overflow: hidden;
+    font-family: "Source Sans Pro" !important;
+}
+
+#wrapper {
+    min-height: 100%;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0;
+    display: inline-block;
+}
+
+#main-wrapper {
+    height: 100%;
+    overflow-y: auto;
+    padding: 50px 0 60px 0;
+}
+
+#main {
+    position: relative;
+    height: 100%;
+    overflow-y: auto;
+    padding: 0 15px;
+}
+
+#sidebar-wrapper {
+    height: 100%;
+    padding: 50px 0 0px 0;
+    position: fixed;
+    border-right: 1px solid gray;
+}
+
+#sidebar {
+    position: relative;
+    height: 100%;
+    overflow-y: auto;
+}
+
+#sidebar .list-group-item {
+    border-radius: 0;
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+}
+
+@media (max-width: 992px) {
+    body {
+        padding-top: 0px;
+    }
+}
+
+@media (min-width: 992px) {
+    #main-wrapper {
+        float: right;
+    }
+}
+
+@media (max-width: 992px) {
+    #main-wrapper {
+        padding-top: 0px;
+    }
+}
+
+@media (max-width: 992px) {
+    #sidebar-wrapper {
+        position: static;
+        height: auto;
+        max-height: 300px;
+        border-right: 0;
+    }
+}
+
+/* custom */
+/*.active a{
+  color:#5DB0E6 !important;
+  text-decoration:none;
+
+}*/
+.active a {
+    color: #42DB44 !important;
+    text-decoration: none;
+    /*border: 1px #5DB0E6 solid;*/
+}
+
+/*
+.active .overlay{
+    border:4px solid #5DB0E6;
+}*/
+.active .overlay {
+    border: 4px solid #42DB44;
+}
+
+#playlist {
+    overflow-y: scroll;
+    height: 98%;
+}
+
+ul#playlist li {
+    list-style: none;
+    /* width:200px; */
+    /* height:300px; */
+    padding: 6px;
+    float: left;
+    color: #000000;
+}
+
+ul#playlist li a.track {
+    padding: 5px;
+    display: block;
+    color: #000000;
+}
+
+ul#playlist li a:hover {
+    text-decoration: none;
+}
+
+#playertitle {
+    height: 177px;
+    background-color: rgba(0, 0, 0, 0.40);
+    color: #FFF;
+}
+
+#playertitle ul li a {
+    cursor: help;
+}
+
+#osd {
+    list-style: none;
+    color: white;
+    font-size: 1.1em;
+}
+
+#osd li {
+    /*   float:left; */
+    /*   margin-right:8%; */
+
+}
+
+#osd a {
+    /*   color:white; */
+    margin-left: 6%;
+    text-overflow: ellipsis;
+}
+#osd_loader{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    width:100%;
+}
+
+#search {
+    padding: 0.8%;
+    background-color: rgba(0, 0, 0, 0.58); /*#232C32*/
+    color: #FFF;
+}
+
+#search input {
+    border-color: #657789;
+    border-width: 0px;
+    border-color: transparent;
+    border-bottom: 1px solid #627B8C;
+    color: #FFF;
+    background-color: transparent;
+    border-radius: 0px;
+    box-shadow: none;
+    width: 88%;
+    float: left;
+}
+
+#search input:focus {
+    border-color: #627B8C;
+}
+
+#search p {
+    margin-top: 12px;
+    float: right;
+    color: #627B8C;
+}
+
+#instantAnswer {
+    background-color: rgba(9, 10, 11, 0.97);
+    position: absolute;
+    top: -198%;
+    left: 0%;
+    right: 0%;
+    bottom: 100%;
+    overflow-y: auto;
+    z-index: 998;
+}
+
+#instantAnswer ul {
+    list-style: none;
+    /*padding: 41px;*/
+    word-break: normal;
+    text-align: justify;
+}
+
+#iaul li {
+}
+
+#iaclose{
+    position: absolute;
+    top: 0%;
+    left: 97%;
+    right: 0%;
+    z-index: 999;
+    text-decoration: none;
+}
+
+.iaclose a{
+    color:#FFF;
+    float: right;
+    margin-right: 8px;
+}
+
+.iaclose a i{
+    color: #FFF;
+}
+
+#sidebar {
+    background-color: #181F24;
+}
+
+.text-success {
+    color: #42DB44;
+}
+
+.text-warning {
+    color: #CB8B1E;
+}
+
+.text-danger {
+    color: #CE2724;
+}
+
+.text-info {
+    color: #2194CC;
+}
+
+.list-group-item {
+    -webkit-transition: background-color 0.8s ease-out;
+    -moz-transition: background-color 0.8s ease-out;
+    -o-transition: background-color 0.8s ease-out;
+    transition: background-color 0.8s ease-out;
+    background-color: #181F24;
+    border-color: #3c3c3c;
+    /*color:#8CA1AF !important;*/
+}
+
+a.list-group-item {
+}
+
+a.list-group-item:hover {
+    background-color: rgba(44, 57, 66, 0.8) !important;
+    color: #fff;
+}
+
+a.list-group-item:focus {
+    background-color: rgba(131, 131, 131, 0.5) !important;
+    color: #fff;
+}
+
+#main-wrapper {
+    padding: 0px 0px 60px;
+}
+
+#sidebar-wrapper {
+    padding: 0px;
+}
+
+audio, video {
+    display: block;
+    width: 100%;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    height: 60px;
+    background-color: #5A6A7A;
+    z-index: 999;
+}
+
+.albumart {
+    position: relative;
+}
+
+/* .albumart:hover{
+    border:1px solid #337AB7;
+} */
+.overlay {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    background-color: rgba(0, 0, 0, 0.75);
+    display: none;
+    border-radius: 4px;
+    color: #2194CC;
+    /* color:#428BCA; */
+    border: 4px solid #9BADB9;
+}
+
+.overlay .control-play {
+    text-align: center;
+
+}
+
+.overlay .control-play:hover, .overlay .fa-facebook:hover, .overlay .fa-twitter:hover {
+    -ms-transform: scale(1.2); /* IE 9 */
+    -webkit-transform: scale(1.2); /* Safari */
+    transform: scale(1.2);
+}
+
+.overlay .fa-minus:hover, .overlay .fa-plus:hover {
+    -ms-transform: scale(1.5); /* IE 9 */
+    -webkit-transform: scale(1.5); /* Safari */
+    transform: scale(1.5);
+}
+
+.overlay .fa-facebook {
+    position: absolute;
+    bottom: 0;
+    color: white;
+    display: inline-block;
+    right: 50px;
+}
+
+.overlay .fa-facebook:hover{
+    color:#3A5795;
+}
+
+.overlay-share {
+    position: absolute;
+    border-top: 1px solid white;
+    width: 100%;
+    bottom: 6px;
+    height: 20px;
+    padding-top: 26px;
+}
+
+.overlay .fa-twitter {
+    position: absolute;
+    bottom: 0;
+    color: white;
+    display: inline-block;
+    left: 50px
+}
+
+.overlay .fa-twitter:hover{
+    color:#55ACEE;
+}
+
+.overlay .fa-minus {
+    position: absolute;
+    color: white;
+    display: table;
+    left: 24%;
+    top: 45%;
+    font-size: 21px;
+    z-index: 5;
+}
+
+.overlay .fa-plus {
+    position: absolute;
+    color: white;
+    display: block !important;
+    left: 64%;
+    top: 44%;
+    font-size: 21px;
+    z-index: 5;
+}
+
+.overlay .minus-icon {
+    position: absolute;
+    color: white;
+    display: block !important;
+    left: 32%;
+    top: 42%;
+    font-size: 28px;
+}
+
+.control-center {
+    position: absolute;
+    top: 40%;
+    left: 0px;
+    right: 0px;
+}
+
+.control-play {
+    font-size: 2em;
+}
+
+.title {
+    white-space: nowrap;
+    display: block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: 16px;
+}
+
+#player {
+    padding: 20px 0 0 0;
+}
+
+#player i {
+    color: #FFFFFF;
+    font-size: 1.4em;
+}
+
+#albumart_container {
+}
+
+#player_albumart {
+}
+
+#asset_controls {
+    padding-top: 3px;
+    padding-right: 3px;
+}
+
+#custom_controls a {
+    font-size: 12px;
+}
+
+#custom_controls_wrapper {
+    padding-top: 3px;
+}
+
+#volume_slider {
+    width: 78px;
+}
+
+#volume {
+    padding-top: 3px;
+}
+
+#seek_slider {
+    width: 100%;
+}
+
+.slider-handle {
+    background-color: #595959;
+    background-image: none;
+    width: 10px;
+    height: 10px;
+}
+
+.slider-handle.round {
+    border-radius: 0px !important;
+}
+
+.slider.slider-horizontal .slider-handle {
+    margin-top: 0px;
+    box-shadow: none;
+}
+
+.slider-track {
+    border-radius: 0px;
+    background-color: #778490;
+    box-shadow: 0px;
+}
+
+.slider-selection {
+    border-radius: 0px;
+    background-color: rgb(51, 150, 0);
+}
+
+#seek_slider .slider-track {
+    background-color: #4CB6CB;
+}
+
+#repeat {
+    padding-top: 3px;
+}
+#current_time,#total_time{
+    color:#FFF;
+}
+#asset_controls a i:active, #custom_controls a i:active{
+/*   color:#42DB44; */ 
+/*   color:#CE2724; */
+  color:#42DB44;
+}
+#volume_mute{
+  color:#CE2724 !important;
+}
+.control-on{
+    color:#42DB44 !important;
+}
+.icon-user-female, .icon-user-follow, .icon-user-following, .icon-user-unfollow, .icon-trophy, .icon-screen-smartphone, .icon-screen-desktop, .icon-plane, .icon-notebook, .icon-moustache, .icon-mouse, .icon-magnet, .icon-energy, .icon-emoticon-smile, .icon-disc, .icon-cursor-move, .icon-crop, .icon-credit-card, .icon-chemistry, .icon-user, .icon-speedometer, .icon-social-youtube, .icon-social-twitter, .icon-social-tumblr, .icon-social-facebook, .icon-social-dropbox, .icon-social-dribbble, .icon-shield, .icon-screen-tablet, .icon-magic-wand, .icon-hourglass, .icon-graduation, .icon-ghost, .icon-game-controller, .icon-fire, .icon-eyeglasses, .icon-envelope-open, .icon-envelope-letter, .icon-bell, .icon-badge, .icon-anchor, .icon-wallet, .icon-vector, .icon-speech, .icon-puzzle, .icon-printer, .icon-present, .icon-playlist, .icon-pin, .icon-picture, .icon-map, .icon-layers, .icon-handbag, .icon-globe-alt, .icon-globe, .icon-frame, .icon-folder-alt, .icon-film, .icon-feed, .icon-earphones-alt, .icon-earphones, .icon-drop, .icon-drawer, .icon-docs, .icon-directions, .icon-direction, .icon-diamond, .icon-cup, .icon-compass, .icon-call-out, .icon-call-in, .icon-call-end, .icon-calculator, .icon-bubbles, .icon-briefcase, .icon-book-open, .icon-basket-loaded, .icon-basket, .icon-bag, .icon-action-undo, .icon-action-redo, .icon-wrench, .icon-umbrella, .icon-trash, .icon-tag, .icon-support, .icon-size-fullscreen, .icon-size-actual, .icon-shuffle, .icon-share-alt, .icon-share, .icon-rocket, .icon-question, .icon-pie-chart, .icon-pencil, .icon-note, .icon-music-tone-alt, .icon-music-tone, .icon-microphone, .icon-loop, .icon-logout, .icon-login, .icon-list, .icon-like, .icon-home, .icon-grid, .icon-graph, .icon-equalizer, .icon-dislike, .icon-cursor, .icon-control-start, .icon-control-rewind, .icon-control-play, .icon-control-pause, .icon-control-forward, .icon-control-end, .icon-calendar, .icon-bulb, .icon-bar-chart, .icon-arrow-up, .icon-arrow-right, .icon-arrow-left, .icon-arrow-down, .icon-ban, .icon-bubble, .icon-camcorder, .icon-camera, .icon-check, .icon-clock, .icon-close, .icon-cloud-download, .icon-cloud-upload, .icon-doc, .icon-envelope, .icon-eye, .icon-flag, .icon-folder, .icon-heart, .icon-info, .icon-key, .icon-link, .icon-lock, .icon-lock-open, .icon-magnifier, .icon-magnifier-add, .icon-magnifier-remove, .icon-paper-clip, .icon-paper-plane, .icon-plus, .icon-pointer, .icon-power, .icon-refresh, .icon-reload, .icon-settings, .icon-star, .icon-symbol-female, .icon-symbol-male, .icon-target, .icon-volume-1, .icon-volume-2, .icon-volume-off, .icon-users {
+    font-family: "Simple-Line-Icons" !important;
+    font-style: normal !important;
+    font-weight: normal !important;
+    font-variant: normal !important;
+    text-transform: none !important;
+    line-height: 1 !important;
+}
+
+.icon-user-female:before {
+    content: "\e000";
+}
+
+.icon-user-follow:before {
+    content: "\e002";
+}
+
+.icon-user-following:before {
+    content: "\e003";
+}
+
+.icon-user-unfollow:before {
+    content: "\e004";
+}
+
+.icon-trophy:before {
+    content: "\e006";
+}
+
+.icon-screen-smartphone:before {
+    content: "\e010";
+}
+
+.icon-screen-desktop:before {
+    content: "\e011";
+}
+
+.icon-plane:before {
+    content: "\e012";
+}
+
+.icon-notebook:before {
+    content: "\e013";
+}
+
+.icon-moustache:before {
+    content: "\e014";
+}
+
+.icon-mouse:before {
+    content: "\e015";
+}
+
+.icon-magnet:before {
+    content: "\e016";
+}
+
+.icon-energy:before {
+    content: "\e020";
+}
+
+.icon-emoticon-smile:before {
+    content: "\e021";
+}
+
+.icon-disc:before {
+    content: "\e022";
+}
+
+.icon-cursor-move:before {
+    content: "\e023";
+}
+
+.icon-crop:before {
+    content: "\e024";
+}
+
+.icon-credit-card:before {
+    content: "\e025";
+}
+
+.icon-chemistry:before {
+    content: "\e026";
+}
+
+.icon-user:before {
+    content: "\e005";
+}
+
+.icon-speedometer:before {
+    content: "\e007";
+}
+
+.icon-social-youtube:before {
+    content: "\e008";
+}
+
+.icon-social-twitter:before {
+    content: "\e009";
+}
+
+.icon-social-tumblr:before {
+    content: "\e00a";
+}
+
+.icon-social-facebook:before {
+    content: "\e00b";
+}
+
+.icon-social-dropbox:before {
+    content: "\e00c";
+}
+
+.icon-social-dribbble:before {
+    content: "\e00d";
+}
+
+.icon-shield:before {
+    content: "\e00e";
+}
+
+.icon-screen-tablet:before {
+    content: "\e00f";
+}
+
+.icon-magic-wand:before {
+    content: "\e017";
+}
+
+.icon-hourglass:before {
+    content: "\e018";
+}
+
+.icon-graduation:before {
+    content: "\e019";
+}
+
+.icon-ghost:before {
+    content: "\e01a";
+}
+
+.icon-game-controller:before {
+    content: "\e01b";
+}
+
+.icon-fire:before {
+    content: "\e01c";
+}
+
+.icon-eyeglasses:before {
+    content: "\e01d";
+}
+
+.icon-envelope-open:before {
+    content: "\e01e";
+}
+
+.icon-envelope-letter:before {
+    content: "\e01f";
+}
+
+.icon-bell:before {
+    content: "\e027";
+}
+
+.icon-badge:before {
+    content: "\e028";
+}
+
+.icon-anchor:before {
+    content: "\e029";
+}
+
+.icon-wallet:before {
+    content: "\e02a";
+}
+
+.icon-vector:before {
+    content: "\e02b";
+}
+
+.icon-speech:before {
+    content: "\e02c";
+}
+
+.icon-puzzle:before {
+    content: "\e02d";
+}
+
+.icon-printer:before {
+    content: "\e02e";
+}
+
+.icon-present:before {
+    content: "\e02f";
+}
+
+.icon-playlist:before {
+    content: "\e030";
+}
+
+.icon-pin:before {
+    content: "\e031";
+}
+
+.icon-picture:before {
+    content: "\e032";
+}
+
+.icon-map:before {
+    content: "\e033";
+}
+
+.icon-layers:before {
+    content: "\e034";
+}
+
+.icon-handbag:before {
+    content: "\e035";
+}
+
+.icon-globe-alt:before {
+    content: "\e036";
+}
+
+.icon-globe:before {
+    content: "\e037";
+}
+
+.icon-frame:before {
+    content: "\e038";
+}
+
+.icon-folder-alt:before {
+    content: "\e039";
+}
+
+.icon-film:before {
+    content: "\e03a";
+}
+
+.icon-feed:before {
+    content: "\e03b";
+}
+
+.icon-earphones-alt:before {
+    content: "\e03c";
+}
+
+.icon-earphones:before {
+    content: "\e03d";
+}
+
+.icon-drop:before {
+    content: "\e03e";
+}
+
+.icon-drawer:before {
+    content: "\e03f";
+}
+
+.icon-docs:before {
+    content: "\e040";
+}
+
+.icon-directions:before {
+    content: "\e041";
+}
+
+.icon-direction:before {
+    content: "\e042";
+}
+
+.icon-diamond:before {
+    content: "\e043";
+}
+
+.icon-cup:before {
+    content: "\e044";
+}
+
+.icon-compass:before {
+    content: "\e045";
+}
+
+.icon-call-out:before {
+    content: "\e046";
+}
+
+.icon-call-in:before {
+    content: "\e047";
+}
+
+.icon-call-end:before {
+    content: "\e048";
+}
+
+.icon-calculator:before {
+    content: "\e049";
+}
+
+.icon-bubbles:before {
+    content: "\e04a";
+}
+
+.icon-briefcase:before {
+    content: "\e04b";
+}
+
+.icon-book-open:before {
+    content: "\e04c";
+}
+
+.icon-basket-loaded:before {
+    content: "\e04d";
+}
+
+.icon-basket:before {
+    content: "\e04e";
+}
+
+.icon-bag:before {
+    content: "\e04f";
+}
+
+.icon-action-undo:before {
+    content: "\e050";
+}
+
+.icon-action-redo:before {
+    content: "\e051";
+}
+
+.icon-wrench:before {
+    content: "\e052";
+}
+
+.icon-umbrella:before {
+    content: "\e053";
+}
+
+.icon-trash:before {
+    content: "\e054";
+}
+
+.icon-tag:before {
+    content: "\e055";
+}
+
+.icon-support:before {
+    content: "\e056";
+}
+
+.icon-size-fullscreen:before {
+    content: "\e057";
+}
+
+.icon-size-actual:before {
+    content: "\e058";
+}
+
+.icon-shuffle:before {
+    content: "\e059";
+}
+
+.icon-share-alt:before {
+    content: "\e05a";
+}
+
+.icon-share:before {
+    content: "\e05b";
+}
+
+.icon-rocket:before {
+    content: "\e05c";
+}
+
+.icon-question:before {
+    content: "\e05d";
+}
+
+.icon-pie-chart:before {
+    content: "\e05e";
+}
+
+.icon-pencil:before {
+    content: "\e05f";
+}
+
+.icon-note:before {
+    content: "\e060";
+}
+
+.icon-music-tone-alt:before {
+    content: "\e061";
+}
+
+.icon-music-tone:before {
+    content: "\e062";
+}
+
+.icon-microphone:before {
+    content: "\e063";
+}
+
+.icon-loop:before {
+    content: "\e064";
+}
+
+.icon-logout:before {
+    content: "\e065";
+}
+
+.icon-login:before {
+    content: "\e066";
+}
+
+.icon-list:before {
+    content: "\e067";
+}
+
+.icon-like:before {
+    content: "\e068";
+}
+
+.icon-home:before {
+    content: "\e069";
+}
+
+.icon-grid:before {
+    content: "\e06a";
+}
+
+.icon-graph:before {
+    content: "\e06b";
+}
+
+.icon-equalizer:before {
+    content: "\e06c";
+}
+
+.icon-dislike:before {
+    content: "\e06d";
+}
+
+.icon-cursor:before {
+    content: "\e06e";
+}
+
+.icon-control-start:before {
+    content: "\e06f";
+}
+
+.icon-control-rewind:before {
+    content: "\e070";
+}
+
+.icon-control-play:before {
+    content: "\e071";
+}
+
+.icon-control-pause:before {
+    content: "\e072";
+}
+
+.icon-control-forward:before {
+    content: "\e073";
+}
+
+.icon-control-end:before {
+    content: "\e074";
+}
+
+.icon-calendar:before {
+    content: "\e075";
+}
+
+.icon-bulb:before {
+    content: "\e076";
+}
+
+.icon-bar-chart:before {
+    content: "\e077";
+}
+
+.icon-arrow-up:before {
+    content: "\e078";
+}
+
+.icon-arrow-right:before {
+    content: "\e079";
+}
+
+.icon-arrow-left:before {
+    content: "\e07a";
+}
+
+.icon-arrow-down:before {
+    content: "\e07b";
+}
+
+.icon-ban:before {
+    content: "\e07c";
+}
+
+.icon-bubble:before {
+    content: "\e07d";
+}
+
+.icon-camcorder:before {
+    content: "\e07e";
+}
+
+.icon-camera:before {
+    content: "\e07f";
+}
+
+.icon-check:before {
+    content: "\e080";
+}
+
+.icon-clock:before {
+    content: "\e081";
+}
+
+.icon-close:before {
+    content: "\e082";
+}
+
+.icon-cloud-download:before {
+    content: "\e083";
+}
+
+.icon-cloud-upload:before {
+    content: "\e084";
+}
+
+.icon-doc:before {
+    content: "\e085";
+}
+
+.icon-envelope:before {
+    content: "\e086";
+}
+
+.icon-eye:before {
+    content: "\e087";
+}
+
+.icon-flag:before {
+    content: "\e088";
+}
+
+.icon-folder:before {
+    content: "\e089";
+}
+
+.icon-heart:before {
+    content: "\e08a";
+}
+
+.icon-info:before {
+    content: "\e08b";
+}
+
+.icon-key:before {
+    content: "\e08c";
+}
+
+.icon-link:before {
+    content: "\e08d";
+}
+
+.icon-lock:before {
+    content: "\e08e";
+}
+
+.icon-lock-open:before {
+    content: "\e08f";
+}
+
+.icon-magnifier:before {
+    content: "\e090";
+}
+
+.icon-magnifier-add:before {
+    content: "\e091";
+}
+
+.icon-magnifier-remove:before {
+    content: "\e092";
+}
+
+.icon-paper-clip:before {
+    content: "\e093";
+}
+
+.icon-paper-plane:before {
+    content: "\e094";
+}
+
+.icon-plus:before {
+    content: "\e095";
+}
+
+.icon-pointer:before {
+    content: "\e096";
+}
+
+.icon-power:before {
+    content: "\e097";
+}
+
+.icon-refresh:before {
+    content: "\e098";
+}
+
+.icon-reload:before {
+    content: "\e099";
+}
+
+.icon-settings:before {
+    content: "\e09a";
+}
+
+.icon-star:before {
+    content: "\e09b";
+}
+
+.icon-symbol-female:before {
+    content: "\e09c";
+}
+
+.icon-symbol-male:before {
+    content: "\e09d";
+}
+
+.icon-target:before {
+    content: "\e09e";
+}
+
+.icon-volume-1:before {
+    content: "\e09f";
+}
+
+.icon-volume-2:before {
+    content: "\e0a0";
+}
+
+.icon-volume-off:before {
+    content: "\e0a1";
+}
+
+.icon-users:before {
+    content: "\e001";
+}
+
+/*  preloader */
+#preloader_1{
+    /*position:relative;*/
+    position: absolute;
+    top: 16%;
+    left: 30%;
+    right: 0px;
+}
+#preloader_1 span{
+    display:block;
+    bottom:0px;
+    width: 9px;
+    height: 5px;
+    background:#9b59b6;
+    position:absolute;
+    animation: preloader_1 1.5s  infinite ease-in-out;
+}
+ 
+#preloader_1 span:nth-child(2){
+left:11px;
+animation-delay: .2s;
+ 
+}
+#preloader_1 span:nth-child(3){
+left:22px;
+animation-delay: .4s;
+}
+#preloader_1 span:nth-child(4){
+left:33px;
+animation-delay: .6s;
+}
+#preloader_1 span:nth-child(5){
+left:44px;
+animation-delay: .8s;
+}
+#preloader_1 span:nth-child(6){
+left:54px;
+animation-delay: .10s;
+}
+#preloader_1 span:nth-child(7){
+left:64px;
+animation-delay: .12s;
+}
+#preloader_1 span:nth-child(8){
+left:74px;
+animation-delay: .14s;
+}
+#preloader_1 span:nth-child(9){
+left:84px;
+animation-delay: .12s;
+}
+#preloader_1 span:nth-child(10){
+left:94px;
+animation-delay: .10s;
+}
+#preloader_1 span:nth-child(11){
+left:104px;
+animation-delay: .8s;
+}
+#preloader_1 span:nth-child(12){
+left:114px;
+animation-delay: .6s;
+}
+#preloader_1 span:nth-child(13){
+left:124px;
+animation-delay: .6s;
+}
+#preloader_1 span:nth-child(14){
+left:134px;
+animation-delay: .4s;
+}
+#preloader_1 span:nth-child(15){
+left:144px;
+animation-delay: .2s;
+}
+@keyframes preloader_1 {
+    0% {height:5px;transform:translateY(0px);background:#9b59b6;}
+    25% {height:30px;transform:translateY(15px);background:#3498db;}
+    50% {height:5px;transform:translateY(0px);background:#9b59b6;}
+    100% {height:5px;transform:translateY(0px);background:#9b59b6;}
+}

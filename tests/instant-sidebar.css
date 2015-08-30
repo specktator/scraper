@@ -1,0 +1,24 @@
+#instantAnswer{
+  background-color: rgba(90, 106, 122, 0.3);
+}
+#sidebar{
+  background-color: #181F24;
+}
+.list-group-item{
+  transition: background-color 3 ease !important;
+  background-color: #181F24;
+  border-color: #3c3c3c;
+}
+a.list-group-item{
+/*     color:#627B8C; */
+  transition: color 3 ease !important;
+  color:#8CA1AF;
+}
+a.list-group-item:hover{
+    color: #fff;
+    background-color:rgba(44, 57, 66, 0.5) !important;
+}
+a.list-group-item:focus{
+  background-color:rgba(131, 131, 131, 0.5) !important;
+   color:#fff;
+}
