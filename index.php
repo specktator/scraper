@@ -94,6 +94,11 @@ $songs = $db->urls;
         <footer class="footer">
           <div class="container-fluid">
             <div class="row">
+              <div id="search" class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                <p><i class="icon-magnifier"></i></p>
+              <input class="form-control" type"text" placeholder="type to search">
+              </div>
+              <div id="playertitle" class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
               <div id="audio_container" class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <div id="player" class="row"> <!-- audio player start-->
                   <div id="albumart_container" class="hide">
@@ -136,11 +141,6 @@ $songs = $db->urls;
                     </div>
                   </div> <!--secondary controls -->
                 </div><!-- audio player end-->
-              </div>
-              <div id="playertitle" class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
-              <div id="search" class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                <p><i class="icon-magnifier"></i></p>
-              <input class="form-control" type"text" placeholder="type to search">
               </div>
             </div>
 

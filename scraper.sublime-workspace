@@ -4,6 +4,42 @@
 		"selected_items":
 		[
 			[
+				"parent",
+				"parentli"
+			],
+			[
+				"paus",
+				"paused"
+			],
+			[
+				"play",
+				"player"
+			],
+			[
+				"pre",
+				"prevlink"
+			],
+			[
+				"contro",
+				"icon-control-pause"
+			],
+			[
+				"album",
+				"albumart"
+			],
+			[
+				"add",
+				"addEventListener"
+			],
+			[
+				"padd",
+				"padding-top"
+			],
+			[
+				"side",
+				"sidebar-wrapper"
+			],
+			[
 				"list-s",
 				"list-style"
 			],
@@ -14,10 +50,6 @@
 			[
 				"text",
 				"text-decoration"
-			],
-			[
-				"padd",
-				"padding"
 			],
 			[
 				"total",
@@ -328,10 +360,6 @@
 				"APACHELOGFILEPATH"
 			],
 			[
-				"pre",
-				"prefix"
-			],
-			[
 				"ex",
 				"except"
 			],
@@ -486,34 +514,6 @@
 			[
 				"per",
 				"person"
-			],
-			[
-				"Lo",
-				"LoGicX"
-			],
-			[
-				"pro",
-				"process"
-			],
-			[
-				"type",
-				"typeahead"
-			],
-			[
-				"boot",
-				"bootstrapClass"
-			],
-			[
-				"session_de",
-				"session_destroy"
-			],
-			[
-				"strre",
-				"str_replace"
-			],
-			[
-				"parse",
-				"parse_url"
 			]
 		]
 	},
@@ -523,7 +523,7 @@
 			"file": "index.php",
 			"settings":
 			{
-				"buffer_size": 5221,
+				"buffer_size": 8656,
 				"line_ending": "Unix"
 			}
 		},
@@ -544,42 +544,13 @@
 			}
 		},
 		{
-			"file": "style.css",
-			"settings":
-			{
-				"buffer_size": 1156,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "tests/app theme/css/styles.css",
-			"settings":
-			{
-				"buffer_size": 15770,
-				"line_ending": "Unix"
-			}
-		},
-		{
+			"contents": "var volumeSlider;\nvar seekSlider;\nvar audio;\nvar playlist;\nvar tracks;\nvar playcontrols;\nvar current;\nvar title;\nvar cover;\nvar play;\nvar pause;\nvar mute;\nvar muted;\nvar close;\nvar duration;\nvar defaultVolume;\nvar currTime;\nvar link;\n$(document).ready(function(){\n  init();\n  function init(){\n    current = 0;\n    audio = new Audio();\n//     cover = $('.cover');\n    play = $('#play');\n    playIcon = $('#play_icon');\n    pauseIcon = $('#pause_icon');\n    volume = $('#volume');\n    playlist = $('#playlist');\n    title = $(\"#playertitle\");\n    instantAnswerobj = $('#instantAnswer');\n    tracks = playlist.find('li > a');\n    len = tracks.length - 1;\n    defaultVolume = audio.volume = .40;\n    // audio.play();\n    \n  \n// PLAYER CONTROLS \n    // PLAY/PAUSE CONTROL\n    play.on('click',function(event){\n      event.preventDefault();\n      // $(this).children('i').toggle();\n      (audio.paused == false) ? audio.pause() : audio.play();\n    });\n    \n    audio.addEventListener('playing',function(event){\n      event.preventDefault();\n      playIcon.hide();\n      pauseIcon.show();\n      $('body').data('currentTrackOverlayBtnObj').children('i.icon-control-play').hide();\n      $('body').data('currentTrackOverlayBtnObj').children('i.icon-control-pause').show();\n      // playlist.siblings('li .albumart .overlay a').children('i').toggle();\n    });\n\n   audio.addEventListener('pause',function(event){\n      event.preventDefault();\n      playIcon.show();\n      pauseIcon.hide();\n      $('body').data('currentTrackOverlayBtnObj').children('i.icon-control-play').show();\n      $('body').data('currentTrackOverlayBtnObj').children('i.icon-control-pause').hide();\n    });\n\n// MUTE/UNMUTE CONTROL\n    volume.on('click',function(event){\n      event.preventDefault();\n      $(this).children('i#volume_mute, i#volume_low').toggle();\n      (audio.muted == false)? audio.muted = true : audio.muted = false;\n    });\n\n    audio.addEventListener('volumechange',function(){\n      volumeSlider.setValue(audio.volume*100);\n    });\n\n// NEXT TRACK\n\n  function next(){\n      current++;\n      if(current == len){\n        current = 0;\n        link = playlist.find('.track');\n      }else{\n        link = playlist.find('.track')[current];\n      }\n      $('body').data('currentTrackOverlayBtnObj',$(link).siblings('.albumart').find('a'));\n      playlist.animate({scrollTop:$(link).parent().position().top - $('#playlist li:first-child').position().top},\"slow\");\n      run($(link),audio);\n      updatetitle($(link),title,instantAnswerobj);\n  }\n\n  $('#forward').on('click',function(event){\n    event.preventDefault();\n    next();\n  });\n\n// PREVIOUS TRACK\n\n  function rewind(){\n      current--;\n      if(current == len){\n        current = 0;\n        link = playlist.find('.track');\n      }else{\n        link = playlist.find('.track')[current-1];\n      }\n      $('body').data('currentTrackOverlayBtnObj',$(link).siblings('.albumart').find('a'));\n      playlist.animate({scrollTop:$(link).parent().position().top - $('#playlist li:first-child').position().top},\"slow\");\n      run($(link),audio);\n      updatetitle($(link),title,instantAnswerobj);\n  }\n\n  $('#rewind').on('click',function(event){\n    event.preventDefault();\n    rewind();\n  });\n\n// TIME CONTROLS\n    \n    //formating seconds like mm:ss \n    timeToDate = function (time){\n      minutes = Math.floor(time/60);\n      seconds = Math.round(time % 60);\n      return String(((String(minutes).length==1)? \"0\"+minutes : minutes) + \":\"+ ((String(seconds).length ==1)? \"0\"+seconds : seconds)) ;\n    }\n    \n    //duration\n    setDuration = function(totalTime){\n      $('#total_time').html(totalTime);\n    }\n    audio.addEventListener('durationchange',function(){\n      duration = audio.duration;\n      seekSlider.setValue(0);\n      setDuration(timeToDate(duration));\n      \n    });\n    \n    //currentTime\n    audio.addEventListener('timeupdate',function (){\n      currentTime = audio.currentTime;\n      $(\"#current_time\").html(timeToDate(currentTime));\n      seekSlider.setValue(currentTime*100/duration);\n      //console.log(currentTime*100/duration);\n    });\n    \n// SEEK SLIDER\n    seekSliderChange = function(){\n      audio.currentTime = duration*seekSlider.getValue()/100;\n    }\n    \n    seekSlider = $('#seek_slider').slider({precision:15, formatter: function(value){ return timeToDate(duration*value/100);}})\n                                           .on('slide change',seekSliderChange)\n                                           .data('slider');\n    \n    // volume slider\n    volumeSliderChange = function(){\n      audio.volume = volumeSlider.getValue()/100;\n    }\n    volumeSlider = $('#volume_slider').slider({formatter: function(value){ return value+'%';}})\n                                              .on('slide',volumeSliderChange)\n                                              .data('slider');\n    \n// PLAYLIST CONTROLS\n\n    playlist.find('a').click(function(event){\n      link = $(this);\n      if(link.hasClass('control-play') && link.children('i.icon-control-play').is(':visible')){\n        // double click cause to replay and not to pause the song - fix it!\n        parentli =link.parent().parent().parent();\n        if(audio.paused && parentli.hasClass('active')){\n          audio.play();\n          return true\n        }\n        // console.log($('body').data('currentTrackOverlayBtnObj'));\n        $('body').data('currentTrackOverlayBtnObj',link);\n        link = parentli.children('a'); // will be used to get song url\n        // audio.trigger('songchanged');\n\n      }else if(link.hasClass('control-play') && link.children('i.icon-control-pause').is(':visible') && link.parent().parent().parent().hasClass('active')){\n          audio.pause();\n          console.log('pause');\n          return false;\n      }\n        current = link.parent().index();\n        run(link, audio);\n        updatetitle($(link),title,instantAnswerobj);\n      \n      event.preventDefault();\n    });\n    \n    audio.addEventListener('ended',function(e){\n      current++;\n      if(current == len){\n        current = 0;\n        link = playlist.find('.track');\n      }else{\n        link = playlist.find('.track')[current];\n      }\n      $('body').data('currentTrackOverlayBtnObj',$(link).siblings('.albumart').find('a'));\n      playlist.animate({scrollTop:$(link).parent().position().top - $('#playlist li:first-child').position().top},\"slow\");\n      run($(link),audio);\n      updatetitle($(link),title,instantAnswerobj);\n    });\n  }\n\n  //add to playlist\n  //remove from playlist\n  //share on twitter\n  //share on facebook\n  \n  function run(link, player){\n    player.src = link.attr('href');\n    par = link.parent();\n    par.addClass('active').siblings().removeClass('active');\n    par.find('.overlay').css('display','block');\n    par.prev().find('.overlay').css('display','none');\n    link.scrollTop();\n    player.load();\n    player.play();\n  }\n\n// PLAYER EXTRA FEATURES\n\n  function updatetitle(link,title,instantAnswerobj){\n     title.html(\"Loading id3 tags ...\");\n    $.get('id3.php',{'url':link.attr('href')}, function(data){\n      if(data == 'The MP3 file contains no valid ID3 Tags.'){\n        console.log(data);\n        title.html(\"Tags not provided.\");\n        title.html('Title: '+data.title);\n      }else{\n        OSDdata= '<ul id=\"osd\" class=\"row\"><li class=\"col-lg-4 col-md-4 col-sm-12 col-xs-12\">Artist: <a href=\"https://duckduckgo.com/?q='+data.artist+'\" target=\"_blank\" >'+data.artist+'</a></li><li class=\"col-lg-4 col-md-4 col-sm-12 col-xs-12\"> Title: <a href=\"https://duckduckgo.com/?q='+data.title+'\" target=\"_blank\">'+data.title+'</a></li><li class=\"col-lg-4 col-md-4 col-sm-12 col-xs-12\"> Album: <a href=\"https://duckduckgo.com/?q='+data.album+'\" target=\"_blank\">'+data.album+'</li></ul>';\n        title.html(OSDdata);\n        instantAnswer(data.artist,instantAnswerobj);\n      }\n    },'json');\n  }\n  \n  function instantAnswer(q,instantAnswerobj){\n\n    instantAnswerobj.html('Loading instant Answer...');\n    $.get('ddg.php',{'type':'instantAnswer','q':q},function(data){\n      console.log(data);\n      if(!$.isEmptyObject(data)){\n        instantAnswerobj.html('<ul id=\"iaul\">Abstract: <li id=\"abstract\">'+data.abstract+'</li> Entity: <li id=\"entity\">'+data.entity+'</li>Site: <li>'+data.officialsite+'</li> Related Topics: <li>'+data.relatedTopics[0]+'</li><li>'+data.relatedTopics[1]+'</li></ul>');\n      }else{\n        instantAnswerobj.html('Oops! Data not provided...');\n      }\n    },\"json\");\n\n\n  }\n\n});",
 			"file": "player.js",
+			"file_size": 8351,
+			"file_write_time": 1440725908000000,
 			"settings":
 			{
-				"buffer_size": 3299,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "search.js",
-			"settings":
-			{
-				"buffer_size": 827,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "controls.js",
-			"settings":
-			{
-				"buffer_size": 239,
+				"buffer_size": 8440,
 				"line_ending": "Unix"
 			}
 		}
@@ -587,9 +558,13 @@
 	"build_system": "",
 	"command_palette":
 	{
-		"height": 54.0,
+		"height": 96.0,
 		"selected_items":
 		[
+			[
+				"grav",
+				"Package Control: Upgrade/Overwrite All Packages"
+			],
 			[
 				"instal",
 				"Package Control: Install Package"
@@ -719,7 +694,7 @@
 				"Convert Case: Lower Case"
 			]
 		],
-		"width": 449.0
+		"width": 467.0
 	},
 	"console":
 	{
@@ -736,12 +711,18 @@
 	},
 	"file_history":
 	[
+		"/var/www/scraper/tests/app theme/css/styles.css",
+		"/var/www/scraper/search.js",
+		"/var/www/scraper/controls.js",
+		"/tmp/fz3temp-1/style.css",
 		"/tmp/fz3temp-1/index.php",
+		"/tmp/fz3temp-1/content-excerpt.php",
+		"/tmp/fz3temp-1/footer.php",
+		"/var/www/scraper/style.css",
 		"/tmp/fz3temp-1/id3.php",
 		"/var/www/scraper/tests/musik theme/app.v1.css",
 		"/tmp/fz3temp-1/scrape.php",
 		"/tmp/fz3temp-1/audio.json",
-		"/var/www/scraper/controls.js",
 		"/var/www/scraper/tests/app theme/index.html",
 		"/var/www/scraper/tests/musik theme/index.html",
 		"/var/www/scraper/audio.json",
@@ -770,9 +751,7 @@
 		"/var/www/scraper/files.txt",
 		"/var/www/scraper/video.json",
 		"/var/www/scraper/db.php.html",
-		"/var/www/scraper/search.js",
 		"/tmp/fz3temp-1/player.js",
-		"/var/www/scraper/style.css",
 		"/var/www/autofollow/lib/bot/engine.bot.php",
 		"/var/www/autofollow/lib/bot/actions.bot.php",
 		"/var/www/autofollow/index.php",
@@ -838,7 +817,6 @@
 		"/var/www/autofollow/runbot.html.inc",
 		"/home/kolpo/.config/sublime-text-2/Packages/SublimeLinter/README.md",
 		"/tmp/fz3temp-1/style 2.css",
-		"/tmp/fz3temp-1/style.css",
 		"/var/www/autofollow/themes/janux/js/fobot.js",
 		"/var/www/autofollow/diff-follower-friends.php",
 		"/tmp/fz3temp-1/README 2.md",
@@ -860,10 +838,7 @@
 		"/var/www/autofollow/DATA TYPES.md",
 		"/var/www/autofollow/mongodb.php",
 		"/var/www/autofollow/parselog.php",
-		"/var/www/autofollow/themes/fotheme/css/bootstrap.css",
-		"/var/www/autofollow/p.php",
-		"/var/www/autofollow/lib/server.php",
-		"/var/www/autofollow/twitteroauth/index.html"
+		"/var/www/autofollow/themes/fotheme/css/bootstrap.css"
 	],
 	"find":
 	{
@@ -884,6 +859,31 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"pause()",
+			"();",
+			"pause()",
+			"instantAnswerobj",
+			"instantAnswer",
+			"pause()",
+			"audio.paused",
+			"next",
+			";\n",
+			"currentTrackOverlayBtnObj",
+			".overlay ",
+			"2",
+			"4",
+			"3",
+			"4",
+			"2",
+			"4",
+			"6",
+			"3",
+			"12",
+			"5",
+			"<i class=\"icon-control-play\">",
+			"url",
+			" !important",
+			"ease",
 			"3",
 			"col-lg-4",
 			"p",
@@ -986,37 +986,12 @@
 			"uri",
 			"fobotActions",
 			"include_once",
-			"inlcude_once",
-			"/'. ",
-			"MyAutoload",
-			"cursors",
-			"||",
-			" || ",
-			"||",
-			"status",
-			"clearsessions.php",
-			"connect.php",
-			"include(.*)config.php(.*)",
-			"include_once('config.php')",
-			"include_once('config.php)",
-			"include('config.php)",
-			"followers_count",
-			"$user",
-			"$eng->pid",
-			"this",
-			"currentLoop",
-			"this",
-			"pidinfo",
-			"botEngine",
-			"errorBotProc",
-			"span1",
-			"Delete",
-			"_SESSION['logLastLength']"
+			"inlcude_once"
 		],
 		"highlight": true,
 		"in_selection": false,
 		"preserve_case": false,
-		"regex": true,
+		"regex": false,
 		"replace_history":
 		[
 			"../fonts/",
@@ -1106,7 +1081,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 3,
 			"sheets":
 			[
 				{
@@ -1114,15 +1089,15 @@
 					"file": "index.php",
 					"settings":
 					{
-						"buffer_size": 5221,
+						"buffer_size": 8656,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4703,
-								4703
+								3889,
+								3889
 							]
 						],
 						"settings":
@@ -1133,6 +1108,7 @@
 								"README",
 								"FIXME"
 							],
+							"color_scheme": "Packages/Theme - Gravity/Monokai Gravity (SL).tmTheme",
 							"csslint_options":
 							{
 								"adjoining-classes": "warning",
@@ -1223,7 +1199,7 @@
 							"word_wrap": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2278.0,
+						"translation.y": 234.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1252,6 +1228,7 @@
 								"README",
 								"FIXME"
 							],
+							"color_scheme": "Packages/Theme - Gravity/Monokai Gravity (SL).tmTheme",
 							"csslint_options":
 							{
 								"adjoining-classes": "warning",
@@ -1370,6 +1347,7 @@
 								"README",
 								"FIXME"
 							],
+							"color_scheme": "Packages/Theme - Gravity/Monokai Gravity (SL).tmTheme",
 							"csslint_options":
 							{
 								"adjoining-classes": "warning",
@@ -1463,264 +1441,34 @@
 						"zoom_level": 1.0
 					},
 					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 1,
-			"sheets":
-			[
+				},
 				{
 					"buffer": 3,
-					"file": "style.css",
-					"settings":
-					{
-						"buffer_size": 1156,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								924,
-								924
-							]
-						],
-						"settings":
-						{
-							"annotations":
-							[
-								"TODO",
-								"README",
-								"FIXME"
-							],
-							"csslint_options":
-							{
-								"adjoining-classes": "warning",
-								"box-model": true,
-								"box-sizing": "warning",
-								"compatible-vendor-prefixes": "warning",
-								"display-property-grouping": true,
-								"duplicate-background-images": "warning",
-								"duplicate-properties": true,
-								"empty-rules": true,
-								"errors": true,
-								"fallback-colors": "warning",
-								"floats": "warning",
-								"font-faces": "warning",
-								"font-sizes": "warning",
-								"gradients": "warning",
-								"ids": "warning",
-								"import": "warning",
-								"important": "warning",
-								"known-properties": true,
-								"outline-none": "warning",
-								"overqualified-elements": "warning",
-								"qualified-headings": "warning",
-								"regex-selectors": "warning",
-								"rules-count": "warning",
-								"shorthand": "warning",
-								"star-property-hack": "warning",
-								"text-indent": "warning",
-								"underscore-property-hack": "warning",
-								"unique-headings": "warning",
-								"universal-selector": "warning",
-								"vendor-prefix": true,
-								"zero-units": "warning"
-							},
-							"gjslint_ignore":
-							[
-								110
-							],
-							"gjslint_options":
-							[
-							],
-							"javascript_linter": "jshint",
-							"jshint_options":
-							{
-								"browser": true,
-								"devel": true,
-								"evil": true,
-								"regexdash": true,
-								"sub": true,
-								"trailing": true,
-								"wsh": true
-							},
-							"pep8": true,
-							"pep8_ignore":
-							[
-								"E501"
-							],
-							"perl_linter": "perlcritic",
-							"pyflakes_ignore":
-							[
-							],
-							"pyflakes_ignore_import_*": true,
-							"sublimelinter": "load-save",
-							"sublimelinter_delay": 2,
-							"sublimelinter_disable":
-							[
-							],
-							"sublimelinter_executable_map":
-							{
-							},
-							"sublimelinter_fill_outlines": false,
-							"sublimelinter_gutter_marks": true,
-							"sublimelinter_gutter_marks_theme": "simple",
-							"sublimelinter_mark_style": "none",
-							"sublimelinter_notes": false,
-							"sublimelinter_objj_check_ascii": false,
-							"sublimelinter_popup_errors_on_save": false,
-							"sublimelinter_syntax_map":
-							{
-								"C++": "c",
-								"Python Django": "python",
-								"Ruby on Rails": "ruby"
-							},
-							"sublimelinter_wrap_find": true,
-							"syntax": "Packages/CSS/CSS.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1380.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "tests/app theme/css/styles.css",
-					"settings":
-					{
-						"buffer_size": 15770,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4217,
-								4217
-							]
-						],
-						"settings":
-						{
-							"annotations":
-							[
-								"TODO",
-								"README",
-								"FIXME"
-							],
-							"csslint_options":
-							{
-								"adjoining-classes": "warning",
-								"box-model": true,
-								"box-sizing": "warning",
-								"compatible-vendor-prefixes": "warning",
-								"display-property-grouping": true,
-								"duplicate-background-images": "warning",
-								"duplicate-properties": true,
-								"empty-rules": true,
-								"errors": true,
-								"fallback-colors": "warning",
-								"floats": "warning",
-								"font-faces": "warning",
-								"font-sizes": "warning",
-								"gradients": "warning",
-								"ids": "warning",
-								"import": "warning",
-								"important": "warning",
-								"known-properties": true,
-								"outline-none": "warning",
-								"overqualified-elements": "warning",
-								"qualified-headings": "warning",
-								"regex-selectors": "warning",
-								"rules-count": "warning",
-								"shorthand": "warning",
-								"star-property-hack": "warning",
-								"text-indent": "warning",
-								"underscore-property-hack": "warning",
-								"unique-headings": "warning",
-								"universal-selector": "warning",
-								"vendor-prefix": true,
-								"zero-units": "warning"
-							},
-							"gjslint_ignore":
-							[
-								110
-							],
-							"gjslint_options":
-							[
-							],
-							"javascript_linter": "jshint",
-							"jshint_options":
-							{
-								"browser": true,
-								"devel": true,
-								"evil": true,
-								"regexdash": true,
-								"sub": true,
-								"trailing": true,
-								"wsh": true
-							},
-							"pep8": true,
-							"pep8_ignore":
-							[
-								"E501"
-							],
-							"perl_linter": "perlcritic",
-							"pyflakes_ignore":
-							[
-							],
-							"pyflakes_ignore_import_*": true,
-							"sublimelinter": "load-save",
-							"sublimelinter_delay": 2,
-							"sublimelinter_disable":
-							[
-							],
-							"sublimelinter_executable_map":
-							{
-							},
-							"sublimelinter_fill_outlines": false,
-							"sublimelinter_gutter_marks": true,
-							"sublimelinter_gutter_marks_theme": "simple",
-							"sublimelinter_mark_style": "none",
-							"sublimelinter_notes": false,
-							"sublimelinter_objj_check_ascii": false,
-							"sublimelinter_popup_errors_on_save": false,
-							"sublimelinter_syntax_map":
-							{
-								"C++": "c",
-								"Python Django": "python",
-								"Ruby on Rails": "ruby"
-							},
-							"sublimelinter_wrap_find": true,
-							"syntax": "Packages/CSS/CSS.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true,
-							"word_wrap": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 4079.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 5,
 					"file": "player.js",
 					"settings":
 					{
-						"buffer_size": 3299,
+						"buffer_size": 8440,
 						"regions":
 						{
+							"bookmarks":
+							{
+								"flags": 144,
+								"icon": "bookmark",
+								"regions":
+								[
+									[
+										4863,
+										4863
+									]
+								],
+								"scope": "bookmarks"
+							}
 						},
 						"selection":
 						[
 							[
-								2395,
-								2395
+								6537,
+								6537
 							]
 						],
 						"settings":
@@ -1731,124 +1479,7 @@
 								"README",
 								"FIXME"
 							],
-							"csslint_options":
-							{
-								"adjoining-classes": "warning",
-								"box-model": true,
-								"box-sizing": "warning",
-								"compatible-vendor-prefixes": "warning",
-								"display-property-grouping": true,
-								"duplicate-background-images": "warning",
-								"duplicate-properties": true,
-								"empty-rules": true,
-								"errors": true,
-								"fallback-colors": "warning",
-								"floats": "warning",
-								"font-faces": "warning",
-								"font-sizes": "warning",
-								"gradients": "warning",
-								"ids": "warning",
-								"import": "warning",
-								"important": "warning",
-								"known-properties": true,
-								"outline-none": "warning",
-								"overqualified-elements": "warning",
-								"qualified-headings": "warning",
-								"regex-selectors": "warning",
-								"rules-count": "warning",
-								"shorthand": "warning",
-								"star-property-hack": "warning",
-								"text-indent": "warning",
-								"underscore-property-hack": "warning",
-								"unique-headings": "warning",
-								"universal-selector": "warning",
-								"vendor-prefix": true,
-								"zero-units": "warning"
-							},
-							"gjslint_ignore":
-							[
-								110
-							],
-							"gjslint_options":
-							[
-							],
-							"javascript_linter": "jshint",
-							"jshint_options":
-							{
-								"browser": true,
-								"devel": true,
-								"evil": true,
-								"regexdash": true,
-								"sub": true,
-								"trailing": true,
-								"wsh": true
-							},
-							"pep8": true,
-							"pep8_ignore":
-							[
-								"E501"
-							],
-							"perl_linter": "perlcritic",
-							"pyflakes_ignore":
-							[
-							],
-							"pyflakes_ignore_import_*": true,
-							"sublimelinter": "load-save",
-							"sublimelinter_delay": 2,
-							"sublimelinter_disable":
-							[
-							],
-							"sublimelinter_executable_map":
-							{
-							},
-							"sublimelinter_fill_outlines": false,
-							"sublimelinter_gutter_marks": true,
-							"sublimelinter_gutter_marks_theme": "simple",
-							"sublimelinter_mark_style": "none",
-							"sublimelinter_notes": false,
-							"sublimelinter_objj_check_ascii": false,
-							"sublimelinter_popup_errors_on_save": false,
-							"sublimelinter_syntax_map":
-							{
-								"C++": "c",
-								"Python Django": "python",
-								"Ruby on Rails": "ruby"
-							},
-							"sublimelinter_wrap_find": true,
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 2826.0,
-						"translation.y": 1333.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "search.js",
-					"settings":
-					{
-						"buffer_size": 827,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								82,
-								82
-							]
-						],
-						"settings":
-						{
-							"annotations":
-							[
-								"TODO",
-								"README",
-								"FIXME"
-							],
+							"color_scheme": "Packages/Theme - Gravity/Monokai Gravity (SL).tmTheme",
 							"csslint_options":
 							{
 								"adjoining-classes": "warning",
@@ -1938,123 +1569,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "controls.js",
-					"settings":
-					{
-						"buffer_size": 239,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								167,
-								167
-							]
-						],
-						"settings":
-						{
-							"annotations":
-							[
-								"TODO",
-								"README",
-								"FIXME"
-							],
-							"csslint_options":
-							{
-								"adjoining-classes": "warning",
-								"box-model": true,
-								"box-sizing": "warning",
-								"compatible-vendor-prefixes": "warning",
-								"display-property-grouping": true,
-								"duplicate-background-images": "warning",
-								"duplicate-properties": true,
-								"empty-rules": true,
-								"errors": true,
-								"fallback-colors": "warning",
-								"floats": "warning",
-								"font-faces": "warning",
-								"font-sizes": "warning",
-								"gradients": "warning",
-								"ids": "warning",
-								"import": "warning",
-								"important": "warning",
-								"known-properties": true,
-								"outline-none": "warning",
-								"overqualified-elements": "warning",
-								"qualified-headings": "warning",
-								"regex-selectors": "warning",
-								"rules-count": "warning",
-								"shorthand": "warning",
-								"star-property-hack": "warning",
-								"text-indent": "warning",
-								"underscore-property-hack": "warning",
-								"unique-headings": "warning",
-								"universal-selector": "warning",
-								"vendor-prefix": true,
-								"zero-units": "warning"
-							},
-							"gjslint_ignore":
-							[
-								110
-							],
-							"gjslint_options":
-							[
-							],
-							"javascript_linter": "jshint",
-							"jshint_options":
-							{
-								"browser": true,
-								"devel": true,
-								"evil": true,
-								"regexdash": true,
-								"sub": true,
-								"trailing": true,
-								"wsh": true
-							},
-							"pep8": true,
-							"pep8_ignore":
-							[
-								"E501"
-							],
-							"perl_linter": "perlcritic",
-							"pyflakes_ignore":
-							[
-							],
-							"pyflakes_ignore_import_*": true,
-							"sublimelinter": "load-save",
-							"sublimelinter_delay": 2,
-							"sublimelinter_disable":
-							[
-							],
-							"sublimelinter_executable_map":
-							{
-							},
-							"sublimelinter_fill_outlines": false,
-							"sublimelinter_gutter_marks": true,
-							"sublimelinter_gutter_marks_theme": "simple",
-							"sublimelinter_mark_style": "none",
-							"sublimelinter_notes": false,
-							"sublimelinter_objj_check_ascii": false,
-							"sublimelinter_popup_errors_on_save": false,
-							"sublimelinter_syntax_map":
-							{
-								"C++": "c",
-								"Python Django": "python",
-								"Ruby on Rails": "ruby"
-							},
-							"sublimelinter_wrap_find": true,
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 2250.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -2079,12 +1594,6 @@
 				0,
 				1,
 				1
-			],
-			[
-				0,
-				1,
-				1,
-				2
 			]
 		],
 		"cols":
@@ -2095,7 +1604,6 @@
 		"rows":
 		[
 			0.0,
-			0.546059365404,
 			1.0
 		]
 	},

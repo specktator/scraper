@@ -12,6 +12,8 @@ try{
   $artist = $id3->getId3Array()['TPE1']['body'];
   $title = $id3->getId3Array()['TIT2']['body'];
   $album = $id3->getId3Array()['TALB']['body'];
+  // list($mimeType, $image) = $id3->getImage();
+  // file_put_contents("thumb.jpeg", $image );
   // $albumart =
   if(!empty($artist) || !empty($title) || !empty($album)){
     if(!empty($_REQUEST['id'])){
