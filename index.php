@@ -15,6 +15,8 @@ $songs = $db->urls;
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href="tests/app theme/css/bootstrap.min.css" rel="stylesheet">
     <link href="tests/app theme/css/bootstrap-slider.min.css" rel="stylesheet">
+    <link href="tests/app theme/css/font-awesome.min.css" rel="stylesheet">
+
     <!--[if lt IE 9]>
       <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -84,7 +86,24 @@ $songs = $db->urls;
                     <?php
                     foreach($songs as $link){
                       flush();
-                      echo '<li class="col-lg-2 col-md-2 col-sm-6 col-xs-6"><div class="albumart img-thumbnail"><div class="overlay"><a href="#" class="control-play control-center"><i class="icon-control-play"></i><i class="icon-control-pause" style="display:none;"></i></a></div><img class="img-responsive" src="tests/app theme/images/img1.jpg" /></div><a class="track" href="'.urldecode(preg_replace('/\n/','',$link['url'])).'"><div class="title">'.basename(urldecode($link['title'])).'</div></a></li>';
+                      echo '<li class="col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                      <div class="albumart img-thumbnail">
+                        <div class="overlay">
+                          <a href="#">
+                            <i class="fa fa-minus"></i><i class="fa fa-plus"></i>
+                          </a>
+                          <a href="#" class="control-play control-center">
+                            <i class="icon-control-play"></i><i class="icon-control-pause" style="display:none;"></i>
+                          </a>
+                          <div class="overlay-share">
+                          <a href="#"><i class="fa fa-twitter"></i></a>
+                          <a href="#"><i class="fa fa-facebook"></i></a>
+                          </div>
+
+
+
+                         </div>
+                       <img class="img-responsive" src="tests/app theme/images/img1.jpg" /></div><a class="track" href="'.urldecode(preg_replace('/\n/','',$link['url'])).'"><div class="title">'.basename(urldecode($link['title'])).'</div></a></li>';
                     }
                     ?>
                   </ul>
