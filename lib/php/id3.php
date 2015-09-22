@@ -14,7 +14,7 @@ class id3 extends functions
 	
 	function __construct()
 	{
-		// set_time_limit('0');
+		// set_time_limit('120');
 		$this->filename = urldecode($_REQUEST['url']);
 		$this->trackid = $_REQUEST['track-id'];
 		$this->validate(); 

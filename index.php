@@ -73,6 +73,9 @@ try {
                         <li>
                             <a class="list-group-item" href="#"><i class="icon-music-tone icon-1x text-info"></i> Genres</a>
                         </li>
+                        <li>
+                            <a class="list-group-item" href="#"><i class="fa fa-bar-chart text-warning"></i> Charts</a>
+                        </li>
                     </ul>
                 </div>
             </div>
