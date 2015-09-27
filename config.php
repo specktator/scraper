@@ -1,7 +1,7 @@
 <?php
 /* CONSTANTS */
 define('ALPHA',TRUE);
-define('APP_NAME',"scraper");
+define('APP_NAME',"femto");
 define('ROOT_PATH',__DIR__."/");
 define('ROOT_REL_PATH',"/".basename(__DIR__));
 define('LIBRARYPATH',__DIR__.'/music/');

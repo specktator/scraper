@@ -58,60 +58,161 @@ try {
             </nav>
         </div> -->
         <div id="wrapper">
-          <div id="sidebar-wrapper" class="col-md-1">
+          <div id="sidebar-wrapper" class="col-lg-1 col-md-1">
                 <div id="sidebar">
                     <ul class="nav list-group">
                         <li>
-                            <a class="list-group-item" href="#"><i class="icon-music-tone-alt icon-1x text-success"></i> Songs</a>
+                            <a class="list-group-item" href="#" data-value="main" tabindex="1"><i class="icon-music-tone-alt icon-1x text-success"></i> Songs</a>
                         </li>
                         <li>
-                            <a class="list-group-item" href="#"><i class="icon-playlist icon-1x text-warning"></i> Playlists</a>
+                            <a class="list-group-item" href="#" data-value="playlists" tabindex="2"><i class="icon-playlist icon-1x text-warning"></i> Playlists</a>
                         </li>
                         <li>
-                            <a class="list-group-item" href="#"><i class="icon-users icon-1x text-danger"></i> Artists</a>
+                            <a class="list-group-item" href="#" data-value="artists" tabindex="3"><i class="icon-users icon-1x text-danger"></i> Artists</a>
                         </li>
                         <li>
-                            <a class="list-group-item" href="#"><i class="icon-music-tone icon-1x text-info"></i> Genres</a>
+                            <a class="list-group-item" href="#" data-value="genres" tabindex="4"><i class="icon-music-tone icon-1x text-info"></i> Genres</a>
                         </li>
                         <li>
-                            <a class="list-group-item" href="#"><i class="fa fa-bar-chart text-warning"></i> Charts</a>
+                            <a class="list-group-item" href="#" data-value="charts" tabindex="5"><i class="fa fa-bar-chart text-warning"></i> Charts</a>
                         </li>
                     </ul>
                 </div>
             </div>
-            <div id="main-wrapper" class="col-md-11 pull-right">
-                <div id="main">
-                  <ul id="playlist" class="row">
-
-                    <?php
-                    foreach($songs as $link){
-                      flush();
-                      $db->load_tags($link['id']);
-                      $albumartLink = (!isset($db->tags->albumart) || empty($db->tags->albumart))? "app theme/images/vinyl2.png" :$db->tags->albumart ;
-                      $linkTitle = (!empty($db->tags->artist) && !empty($db->tags->title))? $db->tags->artist." - ".$db->tags->title : basename(urldecode($link['title']));
-                      echo '<li class="col-lg-2 col-md-2 col-sm-6 col-xs-6">
-                      <div class="albumart img-thumbnail">
-                        <div class="overlay">
-                          <a href="#">
-                            <i class="fa fa-minus"></i><i class="fa fa-plus"></i>
+            <div id="main-wrapper" class="col-lg-11 col-md-11 pull-right">
+                <div id="main" class="page">
+                  <div class="page_wrapper">
+                    <div class="row page-row">
+                      <div class="songs-list col-lg-12 col-md-12 col-sm-12">
+                        <ul id="playlist" class="row">
+                          <?php
+                          foreach($songs as $link){
+                            flush();
+                            $db->load_tags($link['id']);
+                            $tagsArray[] = $db->tags;
+                            $albumartLink = (!isset($db->tags->albumart) || empty($db->tags->albumart))? "app theme/images/vinyl2.png" :$db->tags->albumart ;
+                            $linkTitle = (!empty($db->tags->artist) && !empty($db->tags->title))? $db->tags->artist." - ".$db->tags->title : basename(urldecode($link['title']));
+                            echo '<li class="col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                            <div class="albumart img-thumbnail">
+                              <div class="overlay">
+                                <a href="#">
+                                  <i class="fa fa-minus"></i><i class="fa fa-plus"></i>
+                                </a>
+                                <a href="#" class="control-play control-center">
+                                  <i class="icon-control-play"></i><i class="icon-control-pause" style="display:none;"></i>
+                                </a>
+                                <div class="overlay-share">
+                                <a href="#" data-toggle="tooltip" data-placement="top" title="Share on twitter"><i class="fa fa-twitter"></i></a>
+                                <a href="#" data-toggle="tooltip" data-placement="top" title="Share on facebook"><i class="fa fa-facebook"></i></a>
+                                </div>
+                              </div>
+                             <img class="img-responsive" src="'.$albumartLink.'" />
+                           </div>
+                          <a class="track" track-id="'.$link['id'].'" href="'.urldecode(preg_replace('/\n/','',$link['url'])).'">
+                            <div class="title">'.$linkTitle.'</div>
                           </a>
-                          <a href="#" class="control-play control-center">
-                            <i class="icon-control-play"></i><i class="icon-control-pause" style="display:none;"></i>
-                          </a>
-                          <div class="overlay-share">
-                          <a href="#" data-toggle="tooltip" data-placement="top" title="Share on twitter"><i class="fa fa-twitter"></i></a>
-                          <a href="#" data-toggle="tooltip" data-placement="top" title="Share on facebook"><i class="fa fa-facebook"></i></a>
+                          </li>';
+                          }
+                          ?>
+                        </ul>
+                      </div>
+                      <div id="queue_wrapper" class="col-lg-4 col-md-4 hide-element">
+                          <div id="queue" class="panel panel-default playlists-tracks">
+                              <div class="panel-heading">Queue</div>
+                              <div class="panel-body">
+                                  <p>Drag 'n' Drop songs below </p>
+                              </div> <!-- panel body -->
+                              <ul id="queue_sortable" class="list-group">
+                              </ul>
+                              <div class="panel-footer">
+                                  <div class="row">
+                                      <div id="queue-playlist-controls" class="col-lg-6 col-md-6 col-sm-3 col-xs-3 queue-playlist-controls">
+                                          <a href="#" id="queue_close" class="" data-toggle="tooltip" data-placement="top" title="Turn off the queue. Turning this off means you will use the main playlist."><i class="fa fa-power-off"></i></a>
+                                          <a href="#" id="queue_save" class="" data-toggle="tooltip" data-placement="top" title="Save queue to playlist"><i class="fa fa-save"></i></a>
+                                          <input type="text" id="saveinput" class="form-control" autocomplete="off" placeholder="playlist name ...">
+                                      </div>
+                                  </div>
+                              </div>
                           </div>
-                        </div>
-                       <img class="img-responsive" src="'.$albumartLink.'" />
-                     </div>
-                    <a class="track" track-id="'.$link['id'].'" href="'.urldecode(preg_replace('/\n/','',$link['url'])).'">
-                      <div class="title">'.$linkTitle.'</div>
-                    </a>
-                    </li>';
-                    }
-                    ?>
-                  </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div id="playlists" class="page hide-page">
+                  <div class="page_wrapper">
+                    <div class="row page-row">
+                     <div class="playlists-list col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                        <ul id="playlists" class="list-group ">
+
+                        </ul>
+                      </div>
+                      <div id="playlists-tracks" class="playlists-tracks col-lg-5 col-md-5 col-sm-5 col-xs-5 hide-page">
+                        <ul id="playlists-tracks-list" class="list-group">
+                        </ul>
+                      </div>
+                    </div>
+              </div>
+                </div>
+                <div id="artists" class="page hide-page">
+                  <div class="page_wrapper">
+                    <div class="row page-row">
+                     <div class="artists-list col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                        <ul id="artists" class="list-group ">
+                        <?php
+                        $artists = array_unique(array_filter(array_map(function($value){
+                             return is_object($value) ? @$value->artist : @$value['artist'];
+                            }, $tagsArray),function($value){
+                             return (empty($value))? FALSE : TRUE;
+                            }));
+                        foreach ( $artists as $songid => $name) {
+                          flush();
+                          echo '<li class="list-group-item"><a href="#" data-value="'.$name.'">'.$name.'</a></li>';
+                        }?>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div id="genres" class="page hide-page">
+                  <div class="page_wrapper">
+                    <div class="row page-row">
+                     <div class="genres-list col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                        <ul id="genres" class="list-group ">
+                        <?php
+                        $genres = array_unique(array_filter(array_map(function($value){
+                             return is_object($value) ? @$value->genre : @$value['genre'];
+                            }, $tagsArray),function($value){
+                              return (empty($value))? FALSE : TRUE;
+                            }));
+                        foreach ( $genres as $songid => $name) {
+                          flush();
+                          echo '<li class="list-group-item"><a href="#" data-value="'.$name.'">'.$name.'</a></li>';
+                        }?>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div id="charts" class="page hide-page">
+                  <div class="page_wrapper">
+                    <div class="row">
+                     <div class="charts-list col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                        <ul id="charts" class="list-group ">
+                          <li class="list-group-item"><a href="#" id="allartists">All</a></li>
+                        <?php
+             //           $artists = array_unique(array_filter(array_map(function($value){
+                    //  return is_object($value) ? @$value->artist : @$value['artist'];
+                    // }, $tagsArray),function($value){
+                    //  return (empty($value))? FALSE : TRUE;
+                    // }));
+             //           foreach ( $artists as $songid => $name) {
+             //             flush();
+             //             echo '<li class="list-group-item"><a href="#" data-value="'.$name.'">'.$name.'</a></li>';
+                        //}?>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
                 </div>
             </div>
         </div>
@@ -120,7 +221,7 @@ try {
             <div class="row">
               <div id="search" class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
                 <p><i class="icon-magnifier"></i></p>
-              <input class="form-control" type"text" placeholder="type to search">
+              <input class="form-control" type"text" placeholder="type to search songs, playlists, artists, albums genres">
               </div>
               <div id="playertitle" class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                 <div id="osd_loader"></div>
@@ -140,16 +241,7 @@ try {
                     <a id="previous" href="#"><i class="icon-control-rewind"></i></a>
                     <a id="play" href="#"><i id="play_icon" class="icon-control-play"></i><i id="pause_icon" class="icon-control-pause" style="display:none;"></i></a>
                     <a id="next" href="#"><i class="icon-control-forward"></i></a>
-                    <a id="playlist_control" href="#"><i class="icon-playlist"></i></a>
-                    <div id="playlist" class="hide">
-                      <ul class="playlist_tracks">
-                        <li class="playlist_track"><i class="icon-control-play"></i></li>
-                        <li class="playlist_track"><i class="icon-control-play"></i></li>
-                        <li class="playlist_track"><i class="icon-control-play"></i></li>
-                        <li class="playlist_track"><i class="icon-control-play"></i></li>
-                        <li class="playlist_track"><i class="icon-control-play"></i></li>
-                      </ul>
-                    </div>
+                    <a id="queue_control" href="#"><i class="icon-playlist"></i><span class="badge"></span></a>
                   </div><!-- asset controls -->
                   <div id="seek" class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
                     <input id="seek_slider" data-slider-id='seek_slider' type="text" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="0"/>
@@ -184,9 +276,12 @@ try {
     <script src="app theme/js/jquery-2.1.4.min.js"></script>
     <script src="app theme/js/bootstrap.min.js"></script>
     <script src="app theme/js/bootstrap-slider.min.js"></script>
+    <script src="app theme/js/jquery-ui.min.js"></script>
     <script src="lib/js/player.js"></script>
-    <script src="lib/js/search.js"></script>
     <script src="lib/js/controls.js"></script>
+    <script src="lib/js/navigation.js"></script>
+    <script src="lib/js/search.js"></script>
+    <script src="lib/js/sortdragdrop.js"></script>
   </body>
   </html>
   

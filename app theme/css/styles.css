@@ -130,7 +130,7 @@ body {
     border:4px solid #5DB0E6;
 }*/
 .active .overlay {
-    border: 3px solid #42DB44;
+    border: 1px solid #42DB44;
 }
 
 #playlist {
@@ -174,7 +174,7 @@ ul#playlist li a:hover {
 
 #osd {
     list-style: none;
-    color: white;
+    color: #80D5FF;
     font-size: 1.1em;
 }
 
@@ -185,9 +185,10 @@ ul#playlist li a:hover {
 }
 
 #osd a {
-    /*   color:white; */
+    color:white; 
     margin-left: 6%;
     text-overflow: ellipsis;
+    font-size: 0.9em;
 }
 #osd_loader{
     position: absolute;
@@ -356,7 +357,7 @@ audio, video {
     border-radius: 4px;
     color: #2194CC;
     /* color:#428BCA; */
-    border: 3px solid #9BADB9;
+    border: 1px solid #9BADB9;
 }
 
 .overlay .control-play {
@@ -1307,7 +1308,7 @@ animation-delay: .2s;
 }
 .page .row > div {
     height:100%;
-    overflow-y: auto;
+    /* overflow-y: auto; */
     padding: 0px;
 }
 .page-row>div{
@@ -1327,8 +1328,11 @@ animation-delay: .2s;
   float:right;
   margin-left: 5px;
 }
-.page .playlist-remove i{
+.page .playlist-remove i, .track-remove i{
   color:indianred;
+}
+.page .playlist-share i, .page .playlist-reorder i, .page .track-share i{
+  color:black;
 }
 .page .list-group-item a:hover{
   font-size: 1.2em;
@@ -1345,7 +1349,10 @@ animation-delay: .2s;
 
 /* queue playlist  */
 .queue-playlist-controls a{
-  padding: 0px 15px;
+    padding: 0px 15px;
+    float: left;
+    margin: 8px 0px 0px 0px;
+    font-size: 15px;
 }
 .list-group-item .control-play{
     font-size: 1.4em;
@@ -1354,7 +1361,17 @@ animation-delay: .2s;
 ul.list-group{
     min-height: 100px;
 }
-
+#saveinput {
+    border-width: 0px 0px 1px;
+    border-color: transparent transparent #627B8C;
+    border-bottom: 1px solid #627B8C;
+    border-radius: 0px;
+    box-shadow: none;
+    float: left;
+    width: 120px;
+    background-color: transparent;
+    color: black;
+}
 /*.queue-playlist-controls a:hover{
   background-color: #E8E8E8;
 }*/
@@ -1376,4 +1393,8 @@ ul.list-group{
     background-color: #208C4D;
     /*border: 1px solid #333;*/
     /*box-shadow: inset 1px 0 0 white;*/
+}
+
+.badge{
+    background-color: #D87575;
 }

@@ -1,5 +1,6 @@
 <pre>
 <?php
+$rustart = getrusage();
 // ini_set('xdebug.profiler_enable',1);
 ini_set('display_errors',1);
 error_reporting(-1);
@@ -99,7 +100,19 @@ class scrape {
 
 $obj = new scrape();
 
-$obj->__start('http://localhost/scraper/music','audio only');
+// $obj->__start('http://localhost/scraper/music','audio only');
 // $obj->__start('http://chriscargile.com/music/music','audio only');
+$obj->__start('http://www.w32hax0r.net/music/','audio only');
+
+function rutime($ru, $rus, $index) {
+    return ($ru["ru_$index.tv_sec"]*1000 + intval($ru["ru_$index.tv_usec"]/1000))
+     -  ($rus["ru_$index.tv_sec"]*1000 + intval($rus["ru_$index.tv_usec"]/1000));
+}
+
+$ru = getrusage();
+echo "<br>This process used " . rutime($ru, $rustart, "utime") .
+    " ms for its computations <br>";
+echo "<br>It spent " . rutime($ru, $rustart, "stime") .
+    " ms in system calls <br>";
 ?>
 </pre>
