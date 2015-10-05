@@ -25,7 +25,7 @@ class id3 extends functions
 	}
 
 	function validate(){
-		if (preg_match('/[0-9]+/',$this->trackid) != 1) {
+		if (preg_match('/[a-z0-9]+/',$this->trackid) != 1) {
 			$this->error('track-id is not valid.',1);
 		}
 
@@ -58,9 +58,9 @@ class id3 extends functions
 				$title = ($tags['comments']['title'][0])? $tags['comments']['title'][0] : null;
 				$album = ($tags['comments']['album'][0])? $tags['comments']['album'][0] : null;
 				$genre = ($tags['comments']['genre'][0])? $tags['comments']['genre'][0] : null;
-				$albumart = ($tags['comments']['picture'][0]['data'])? $this->img->saveImg($tags['comments']['picture'][0]['data']) : null;
+				$albumart = (@$tags['comments']['picture'][0]['data'])? $this->img->saveImg($tags['comments']['picture'][0]['data']) : null;
 
-				$tagsArray = ['trackid'=>(int)$this->trackid, 'artist'=>$artist, 'title'=>$title, 'album'=>$album,'genre'=>$genre,'albumart'=>$albumart];
+				$tagsArray = ['trackid'=>$this->trackid, 'artist'=>$artist, 'title'=>$title, 'album'=>$album,'genre'=>$genre,'albumart'=>$albumart];
 				
 				//writing found tags in db
 				$db = new db();

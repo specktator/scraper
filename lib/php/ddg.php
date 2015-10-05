@@ -19,9 +19,9 @@ class ddg {
 		$this->result = json_decode(file_get_contents('http://api.duckduckgo.com/?q='.$keyword.'&format=json&pretty=0&skip_disambig=1'));
 		$abstracttext = $this->result->AbstractText;
 		$entity = $this->result->Entity;
-		$relatedTopics = array($this->result->RelatedTopics[0]->Result,
-			$this->result->RelatedTopics[1]->Result);
-		$officialsite = ($this->result->Results)? $this->result->Results[0]->Result : null;
+		$relatedTopics = array(@$this->result->RelatedTopics[0]->Result,
+			@$this->result->RelatedTopics[1]->Result);
+		$officialsite = (isset($this->result->Results) && !empty($this->result->Results))? $this->result->Results[0]->Result : null;
 		echo json_encode(array(
 			'abstract'=>$abstracttext,
 			'entity'=>$entity,

@@ -100,8 +100,8 @@ class scrape {
 
 $obj = new scrape();
 
-// $obj->__start('http://localhost/scraper/music','audio only');
-$obj->__start('http://chriscargile.com/music/music','audio only');
+$obj->__start('http://localhost/scraper/music','audio only');
+// $obj->__start('http://chriscargile.com/music/music','audio only');
 // $obj->__start('http://www.w32hax0r.net/music/','audio only');
 
 function rutime($ru, $rus, $index) {

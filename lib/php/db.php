@@ -29,7 +29,7 @@ class db{
 		if (!empty($this->records->tracks)) {
 			foreach ($this->records->tracks as $id => $obj) {
 				$this->urls [] = array(
-					'id'=>$id,
+					'id'=>$obj->md5,
 					'url'=>urldecode($obj->url),
 					'title'=>basename(urldecode($obj->url))
 					);
@@ -48,124 +48,155 @@ class db{
 	*/
 
 	public function load_tags($id){
-		@$this->out = $this->tags = $this->records->tracks[$id]->tags;
+		@$this->out = $this->tags = $this->records->tracks[$this->find_index($id,'tracks')]->tags;
 		return $this;
 	}
 
 	public function load_stats($id){
-		$this->out = $this->stats = $this->records->tracks[$id]->stats;
+		$this->out = $this->stats = $this->records->tracks[$this->find_index($id,'tracks')]->stats;
 		return $this;
 	}
 
-	public function load_artists($tagsArray){ //todo
+	public function load_artists(){
 		try {
 
-			$artists = array_unique(array_filter(array_map(function($value){
+			foreach ($this->records->tracks as $index => $trackObj) {
+				$tagsArray [] = @$trackObj->tags;
+			}
+
+			$mapped = array_map(function($value){
                              return is_object($value) ? @$value->artist : @$value['artist'];
-                            }, $tagsArray),function($value){
+                            }, $tagsArray);
+			$filtered = array_filter($mapped,function($value){
                              return (empty($value))? FALSE : TRUE;
-                            }));
+                            });
+			$artists = array_unique($filtered);
             foreach ( $artists as $songid => $name) {
-              flush();
-              echo '<li class="list-group-item"><a href="#" data-value="'.$name.'">'.$name.'</a></li>';
+
+        		$artistsArr[] = ["name"=>$name];
             }
+            $this->out = $artistsArr;
 
 		} catch (Exception $e) {
 			throw new Exception("Error loading tags");
 			
 		}
+		return $this;
 	}
 
-	public function load_genres($tagsArray){ //todo
+	public function load_genres(){
 		try {
-			$genres = array_unique(array_filter(array_map(function($value){
-                             return is_object($value) ? @$value->genre : @$value['genre'];
-                            }, $tagsArray),function($value){
-                              return (empty($value))? FALSE : TRUE;
-                            }));
-	        foreach ( $genres as $songid => $name) {
-	          flush();
-	          echo '<li class="list-group-item"><a href="#" data-value="'.$name.'">'.$name.'</a></li>';
-	        }
+
+			foreach ($this->records->tracks as $index => $trackObj) {
+				$tagsArray [] = @$trackObj->tags;
+			}
+
+			$mapped = array_map(function($value){
+                             return is_object($value) ? @$value->genre : @$value['artist'];
+                            }, $tagsArray);
+			$filtered = array_filter($mapped,function($value){
+                             return (empty($value))? FALSE : TRUE;
+                            });
+			$genres = array_unique($filtered);
+            foreach ( $genres as $songid => $genre) {
+
+        		$genresArr[] = ["name"=>$genre];
+            }
+            $this->out = $genresArr;
+
 		} catch (Exception $e) {
-			throw new Exception("Error loading genres.");
+			throw new Exception("Error loading tags");
 			
 		}
+		return $this;
 	}
 
 	public function load_by_artist($name){
 		try {
+
+			$needle = $name;
+			$needle2 = str_replace(' ','%20', $needle);
+
 			foreach ($this->records->tracks as $id => $trackObj) {
-				$needle = $name;
-				$needle2 = str_replace(' ','%20', $needle);
-				echo $needle2;
-				$results = array_filter($db->records->tracks, function($obj) use($needle,$needle2){
-					if(preg_match($needle, @$obj->tags->artist) || preg_match($needle2, @$obj->url) ){
+				$results = array_filter($this->records->tracks, function($obj) use($needle,$needle2){
+					if(preg_match('/'.$needle.'/i', @$obj->tags->artist) || preg_match('/'.$needle2.'/i', @$obj->url) ){
 						return true;
 					}else{
 						return false;
 					}
 				});
-				foreach ($results as $id => $trackObj) {
-					$title = null;
-					$artist = null;
-					
-					if(@$trackObj->tags){
-						$title = (!$trackObj->tags->title)? basename($trackObj->url) : $trackObj->tags->title;
-						$artist = $trackObj->tags->artist;
-					}
-					$tracks [] = ['id'=>$id,
-								'url'=>$trackObj->url,
-								'title'=>$title,
-								'artist'=>$artist];
-				}
 			}
+
+			foreach ($results as $id => $trackObj) {
+				$title = null;
+				$artist = null;
+				
+				// if(@$trackObj->tags){
+					$title = (!isset($trackObj->tags->title) || empty($trackObj->tags->title))?  urldecode(basename($trackObj->url)) : $trackObj->tags->title;
+					$artist = $trackObj->tags->artist;
+					$albumart = (empty($trackObj->tags->albumart) || !isset($trackObj->tags->albumart) )? "app theme/images/vinyl2.png" : $trackObj->tags->albumart;
+				// }
+				$tracks [] = ['id'=>$trackObj->md5,
+							'url'=>$trackObj->url,
+							'title'=>$title,
+							'artist'=>$artist,
+							'albumart'=>$albumart];
+			}
+
 			$this->out = $tracks;
+
 			
 		} catch (Exception $e) {
 			throw new Exception("Error loading songs by artist.");
 			
 		}
+		return $this;
 	}
 
 	public function load_by_genre($genre){
 		try {
+
+			$needle = $genre;
+
 			foreach ($this->records->tracks as $id => $trackObj) {
-				$needle = $genre;
-				$needle2 = str_replace(' ','%20', $needle);
-				echo $needle2;
-				$results = array_filter($db->records->tracks, function($obj) use($needle,$needle2){
-					if(preg_match($needle, @$obj->tags->artist) || preg_match($needle2, @$obj->url) ){
+				$results = array_filter($this->records->tracks, function($obj) use($needle){
+					if(preg_match('/'.$needle.'/i', @$obj->tags->genre) ){
 						return true;
 					}else{
 						return false;
 					}
 				});
-				foreach ($results as $id => $trackObj) {
-					$title = null;
-					$artist = null;
-					
-					if(@$trackObj->tags){
-						$title = (!$trackObj->tags->title)? basename($trackObj->url) : $trackObj->tags->title;
-						$artist = $trackObj->tags->artist;
-					}
-					$tracks [] = ['id'=>$id,
-								'url'=>$trackObj->url,
-								'title'=>$title,
-								'artist'=>$artist];
-				}
 			}
+
+			foreach ($results as $id => $trackObj) {
+				$title = null;
+				$artist = null;
+				
+				// if(@$trackObj->tags){
+					$title = (!isset($trackObj->tags->title) || empty($trackObj->tags->title))?  urldecode(basename($trackObj->url)) : $trackObj->tags->title;
+					$artist = ( isset($trackObj->tags->artist) )? $trackObj->tags->artist : null;
+					$albumart = (empty($trackObj->tags->albumart) || !isset($trackObj->tags->albumart) )? "app theme/images/vinyl2.png" : $trackObj->tags->albumart;
+				// }
+				$tracks [] = ['id'=>$trackObj->md5,
+							'url'=>$trackObj->url,
+							'title'=>$title,
+							'artist'=>$artist,
+							'albumart'=>$albumart];
+			}
+
 			$this->out = $tracks;
+
 			
 		} catch (Exception $e) {
 			throw new Exception("Error loading songs by artist.");
 			
 		}
+		return $this;
 	}
 
 	public function write_track($url){
 
-		if(isset($url) && ctype_print($url)) {
+		if(isset($url) && !empty($url) && ctype_print($url)) {
 			try {
 				$urlMd5 = md5($url);
 				$this->checkDupes($urlMd5,'tracks');
@@ -184,16 +215,40 @@ class db{
 		return $this;
 	}
 
-	public function checkDupes($md5,$root){
+	public function checkDupes($md5,$root, array $options = []){
+		
+		$options = array_merge(['prop'=>'urlHash'],$options);
+		if(preg_match('/[a-z0-9]+/',$md5)){	
+			foreach ($this->records->{$root} as $id => ${$options['prop']}) {
+				if($md5 === ${$options['prop']}->md5){
 
-		foreach ($this->records->{$root} as $id => $urlHash) {
-			if($md5 === $urlHash->md5){
-
-				throw new Exception("Duplicate found, song id:$id");
-				
+					throw new Exception("Duplicate found, $root index:$id");
+					
+				}
 			}
+
+		}else{
+			throw new Exception("Error id provided hasn't a valid format.");
+			
 		}
 		return TRUE;
+	}
+
+	public function find_index($md5,$root, array $options = []){
+		
+		$options = array_merge(['prop'=>'urlHash'],$options);
+		if(preg_match('/^[a-z0-9]+$/',$md5)){
+			foreach ($this->records->{$root} as $id => ${$options['prop']}) {
+				if($md5 === ${$options['prop']}->md5){
+
+					return $id;
+					
+				}
+			}
+		}else{
+			throw new Exception("Error id provided hasn't a valid format.");
+			
+		}
 	}
 
 	public function write_tags($tagsArray){
@@ -206,7 +261,7 @@ class db{
 				
 				if($checkedTags[$key] === TRUE) {
 
-					@$this->records->tracks[$id]->tags->{$key} = $tagsArray[$key];
+					@$this->records->tracks[$this->find_index($id,'tracks')]->tags->{$key} = $tagsArray[$key];
 
 				}else{
 					throw new Exception("Error writing tag: $key for track with $id and value '{$tagsArray[$key]}'");
@@ -222,7 +277,7 @@ class db{
 	//PLAYLISTS
 	public function write_playlist($name,array $ids){
 
-		if(isset($name) && ctype_print($name) ) {
+		if(isset($name) && !empty($name) && ctype_print($name) ) {
 			
 			try {
 				$nameMd5 = md5($name);
@@ -232,7 +287,7 @@ class db{
 				@$this->records->playlists[$thisRecord]->md5 = $nameMd5;
 				@$this->records->playlists[$thisRecord]->trackids = $ids;
 			} catch (Exception $e) {
-				echo json_encode( ['e'=>$e->getMessage()] );
+				throw new Exception( $e->getMessage() );
 			}
 
 			$this->out = $this->records;
@@ -241,26 +296,34 @@ class db{
 			throw new Exception("Empty or non printable characters provided in playlist name.");
 			
 		}
-		return $this;
 	}
 
 	public function load_playlist($id){
 		try {
+
 			$out = [];
-			$playlist = $this->records->playlists[$id];
+
+			$playlist = $this->records->playlists[$this->find_index($id,'playlists')];
+
+			if(!isset($playlist) ){
+				throw new Exception("Error playlist md5: $id is not set.");
+				
+			}
+
 			$this->audio()->read();
 			$tracks = $this->records->tracks;
-			$this->playlists()->read();
 			
 			foreach ($playlist->trackids as $index => $trackid) {
+				$trackIndex = $this->find_index($trackid,'tracks');
 				$out[] = ['id'=>$trackid,
-							'url'=>$tracks[$trackid]->url,
-							'title'=>(!empty($tracks[$trackid]->tags->title))? $tracks[$trackid]->tags->title : urldecode(basename($tracks[$trackid]->url)),
-							'artist'=>$tracks[$trackid]->tags->artist,
-							'albumart'=>(empty($tracks[$trackid]->tags->albumart) || !isset($tracks[$trackid]->tags->albumart) )? "app theme/images/vinyl2.png" : $tracks[$trackid]->tags->albumart
+							'url'=>$tracks[$trackIndex]->url,
+							'title'=>(!empty($tracks[$trackIndex]->tags->title))? $tracks[$trackIndex]->tags->title : urldecode(basename($tracks[$trackIndex]->url)),
+							'artist'=> @$tracks[$trackIndex]->tags->artist,
+							'albumart'=>(empty($tracks[$trackIndex]->tags->albumart) || !isset($tracks[$trackIndex]->tags->albumart) )? "app theme/images/vinyl2.png" : $tracks[$trackIndex]->tags->albumart
 							];
 			}
 
+			$this->playlists()->read();
 			$this->out = $out;
 			
 		} catch (Exception $e) {
@@ -273,7 +336,7 @@ class db{
 		try {
 
 			foreach ($this->records->playlists as $id => $playlistObj) {
-				$playlists[] = ['id'=>$id,
+				$playlists[] = ['id'=>$playlistObj->md5,
 								'name'=>$playlistObj->name];
 			}
 			$this->out = $playlists;
@@ -287,11 +350,12 @@ class db{
 
 	public function delete_playlist($id){
 		try {
-			unset($this->records->playlist[$id]);
+			unset($this->records->playlists[$this->find_index($id,'playlists')]);
+			$this->records->playlists = array_values($this->records->playlists);
 			$this->out = $this->records;
 
 		} catch (Exception $e) {
-			throw new Exception("Error deleting playlist with id: $id");
+			throw new Exception("Error deleting playlist with md5: $id");
 		}
 		return $this;
 	}
@@ -299,10 +363,11 @@ class db{
 	public function rename_playlist($id,$name){
 		try {
 			
-			if (@$this->records->playlists[$id]) {
+			$index = $this->find_index($id,'playlists');
+			if (@$this->records->playlists[$index]) {
 				$nameMd5 = md5($name);
-				@$this->records->playlists[$id]->name = $name;
-				@$this->records->playlists[$id]->md5 = $nameMd5;
+				@$this->records->playlists[$index]->name = $name;
+				@$this->records->playlists[$index]->md5 = $nameMd5;
 			}
 		} catch (Exception $e) {
 			throw new Exception("Error renaming playlist");
@@ -324,8 +389,8 @@ class db{
 
 	}
 
-	public function spit_out(){
-		echo json_encode($this->out);
+	public function spit_out($option=null){
+		echo json_encode($this->out,$option);
 	}
 
 

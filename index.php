@@ -126,10 +126,10 @@ try {
                               </ul>
                               <div class="panel-footer">
                                   <div class="row">
-                                      <div id="queue-playlist-controls" class="col-lg-6 col-md-6 col-sm-3 col-xs-3 queue-playlist-controls">
-                                          <a href="#" id="queue_close" class="" data-toggle="tooltip" data-placement="top" title="Turn off the queue. Turning this off means you will use the main playlist."><i class="fa fa-power-off"></i></a>
-                                          <a href="#" id="queue_save" class="" data-toggle="tooltip" data-placement="top" title="Save queue to playlist"><i class="fa fa-save"></i></a>
-                                          <input type="text" id="saveinput" class="form-control" autocomplete="off" placeholder="playlist name ...">
+                                      <div id="queue-playlist-controls" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 queue-playlist-controls">
+                                          <a href="#" id="queue_save" class="" data-toggle="tooltip" data-placement="top" title="Save as playlist"><i class="fa fa-save"></i></a>
+                                          <input type="text" id="saveinput" class="form-control" autocomplete="off" placeholder="write playlist name ...">
+                                          <a href="#" id="queue_clear" class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="Clear list">Clear</a>
                                       </div>
                                   </div>
                               </div>
@@ -141,12 +141,12 @@ try {
                 <div id="playlists" class="page hide-page">
                   <div class="page_wrapper">
                     <div class="row page-row">
-                     <div class="playlists-list col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                     <div class="playlists-list col-lg-5 col-md-5 col-sm-6 col-xs-6">
                         <ul id="playlists" class="list-group ">
 
                         </ul>
                       </div>
-                      <div id="playlists-tracks" class="playlists-tracks col-lg-5 col-md-5 col-sm-5 col-xs-5 hide-page">
+                      <div id="playlists-tracks" class="playlists-tracks col-lg-5 col-md-5 col-sm-6 col-xs-6 hide-page">
                         <ul id="playlists-tracks-list" class="list-group">
                         </ul>
                       </div>
@@ -158,16 +158,10 @@ try {
                     <div class="row page-row">
                      <div class="artists-list col-lg-5 col-md-5 col-sm-5 col-xs-5">
                         <ul id="artists" class="list-group ">
-                        <?php
-                        $artists = array_unique(array_filter(array_map(function($value){
-                             return is_object($value) ? @$value->artist : @$value['artist'];
-                            }, $tagsArray),function($value){
-                             return (empty($value))? FALSE : TRUE;
-                            }));
-                        foreach ( $artists as $songid => $name) {
-                          flush();
-                          echo '<li class="list-group-item"><a href="#" data-value="'.$name.'">'.$name.'</a></li>';
-                        }?>
+                         </ul>
+                      </div>
+                      <div id="artist-tracks" class="playlists-tracks col-lg-5 col-md-5 col-sm-6 col-xs-6 hide-page">
+                        <ul id="artist-tracks-list" class="list-group">
                         </ul>
                       </div>
                     </div>
@@ -178,16 +172,10 @@ try {
                     <div class="row page-row">
                      <div class="genres-list col-lg-5 col-md-5 col-sm-5 col-xs-5">
                         <ul id="genres" class="list-group ">
-                        <?php
-                        $genres = array_unique(array_filter(array_map(function($value){
-                             return is_object($value) ? @$value->genre : @$value['genre'];
-                            }, $tagsArray),function($value){
-                              return (empty($value))? FALSE : TRUE;
-                            }));
-                        foreach ( $genres as $songid => $name) {
-                          flush();
-                          echo '<li class="list-group-item"><a href="#" data-value="'.$name.'">'.$name.'</a></li>';
-                        }?>
+                         </ul>
+                      </div>
+                      <div id="genres-tracks" class="playlists-tracks col-lg-5 col-md-5 col-sm-6 col-xs-6 hide-page">
+                        <ul id="genres-tracks-list" class="list-group">
                         </ul>
                       </div>
                     </div>
@@ -221,7 +209,7 @@ try {
             <div class="row">
               <div id="search" class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
                 <p><i class="icon-magnifier"></i></p>
-              <input class="form-control" type"text" placeholder="type to search songs, playlists, artists, albums genres">
+              <input class="form-control" type="text" placeholder="type to search songs, playlists, artists, albums genres">
               </div>
               <div id="playertitle" class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                 <div id="osd_loader"></div>

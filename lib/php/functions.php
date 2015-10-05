@@ -13,9 +13,9 @@ defined('ALPHA') or die('Get Out');
 				saves a temp image file for later usage with getMimeType()
 				returns temp file path
 			*/
-			$bt = debug_backtrace();
-			$caller = array_shift($bt);
-			error_log(__METHOD__.":: ".$caller['file']." ".$caller['line']);
+			// $bt = debug_backtrace();
+			// $caller = array_shift($bt);
+			// error_log(__METHOD__.":: ".$caller['file']." ".$caller['line']);
 
 			$this->tempfile = tempnam(TEMPDIR, "SCRAP_FILE_");
 			$fhandle = fopen($this->tempfile,'wb');

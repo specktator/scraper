@@ -41,6 +41,7 @@ body {
     padding-top: 50px;
     overflow: hidden;
     font-family: "Source Sans Pro" !important;
+    font-size: 13px;
 }
 
 #wrapper {
@@ -200,9 +201,10 @@ ul#playlist li a:hover {
 }
 
 #search {
-    padding: 0.8% 0.8% 0.12% 0.8%;
+    padding: 0.8% 0.8% 0.18% 0.8%;
     background-color: rgba(0, 0, 0, 0.58); /*#232C32*/
     color: #FFF;
+    height: 60px;
 }
 
 #search input {
@@ -225,7 +227,8 @@ ul#playlist li a:hover {
 #search p {
     margin-top: 12px;
     float: right;
-    color: #627B8C;
+    /*color: #627B8C;*/
+    color: #FF9000;
 }
 
 #instantAnswer {
@@ -460,7 +463,7 @@ audio, video {
     display: block;
     text-overflow: ellipsis;
     overflow: hidden;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 #player {
@@ -503,8 +506,13 @@ audio, video {
     width: 100%;
 }
 
+.slider-selection{
+    
+}
+
 .slider-handle {
-    background-color: #595959;
+    /*background-color: #595959;*/
+    background-color: rgb(125, 162, 79);
     background-image: none;
     width: 10px;
     height: 10px;
@@ -527,7 +535,8 @@ audio, video {
 
 .slider-selection {
     border-radius: 0px;
-    background-color: rgb(51, 150, 0);
+    background-color: rgb(125, 162, 79);
+    background-image: none;
 }
 
 #seek_slider .slider-track {
@@ -1306,6 +1315,9 @@ animation-delay: .2s;
 .page-row{
     height:100%;
 }
+.page > div[class$="_wrapper"] > div.page-row > div {
+    overflow-y:auto;
+}
 .page .row > div {
     height:100%;
     /* overflow-y: auto; */
@@ -1328,10 +1340,13 @@ animation-delay: .2s;
   float:right;
   margin-left: 5px;
 }
-.page .playlist-remove i, .track-remove i{
+.page .playlist-remove i,
+.track-remove i{
   color:indianred;
 }
-.page .playlist-share i, .page .playlist-reorder i, .page .track-share i{
+.page .playlist-share i,
+.page .playlist-reorder i,
+.page .track-share i{
   color:black;
 }
 .page .list-group-item a:hover{
@@ -1348,6 +1363,10 @@ animation-delay: .2s;
 }
 
 /* queue playlist  */
+.queue-playlist-controls{
+    padding: 0px 5px 0px 20px !important;
+}
+
 .queue-playlist-controls a{
     padding: 0px 15px;
     float: left;
@@ -1361,6 +1380,9 @@ animation-delay: .2s;
 ul.list-group{
     min-height: 100px;
 }
+#queue_clear {
+    margin: 8px 5px 0px 15px;
+}
 #saveinput {
     border-width: 0px 0px 1px;
     border-color: transparent transparent #627B8C;
@@ -1368,7 +1390,7 @@ ul.list-group{
     border-radius: 0px;
     box-shadow: none;
     float: left;
-    width: 120px;
+    width: 165px;
     background-color: transparent;
     color: black;
 }
@@ -1397,4 +1419,15 @@ ul.list-group{
 
 .badge{
     background-color: #D87575;
+}
+
+.label.notification{
+    float:right;
+}
+
+.alert-fixed{
+    position: absolute;
+    top:2%;
+    right:1%;
+    z-index: 999;
 }
