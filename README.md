@@ -9,7 +9,7 @@ apache indexes scraper - music player with id3 tags and duckduckgo instant answe
 * Extract album covers from ID3 tags and cache them, discover if album cover will be used for multiple tracks and use the cached one.
 * Retrieve artist or track description via duckduckgo.com search engine and display it in player's OSD
 * Search for media files
-* Quick playlist (queue) and saved playlists
+* Queue playlist and saved playlists
 * Track playback stats, favorites, social media sharing (player/track/playlist embeded)
 * Filter tracks by **artist name** and **genre**
 
