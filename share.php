@@ -37,7 +37,7 @@ try {
     <meta charset="utf-8">
     <title> <?php echo APP_NAME; ?> | for the love of music</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <!-- twitter card / opengraph -->
+    <!-- twitter card / opengraph -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="http://femto.rocks">
     <meta name="twitter:site:id" content="@specktator_">
@@ -100,7 +100,7 @@ try {
                 <div id="sidebar">
                     <ul class="nav list-group">
                         <li>
-                            <a class="list-group-item" href="#" data-value="main" tabindex="1"><i class="icon-music-tone-alt icon-1x text-success"></i> Library</a>
+                            <a class="list-group-item" href="#" data-value="main" tabindex="1"><i class="icon-music-tone-alt icon-1x text-success"></i> Songs</a>
                         </li>
                         <li>
                             <a class="list-group-item" href="#" data-value="playlists" tabindex="2"><i class="icon-playlist icon-1x text-warning"></i> Playlists</a>
@@ -124,33 +124,7 @@ try {
                       <div class="songs-list col-lg-12 col-md-12 col-sm-12">
                         <ul id="playlist" class="row">
                           <?php
-                          foreach($songs as $link){
-                            flush();
-                            $db->load_tags($link['id']);
-                            $tagsArray[] = $db->tags;
-                            $albumartLink = (!isset($db->tags->albumart) || empty($db->tags->albumart))? "app_theme/images/vinyl2.png" :$db->tags->albumart ;
-                            $linkTitle = (!empty($db->tags->artist) && !empty($db->tags->title))? $db->tags->artist." - ".$db->tags->title : basename(urldecode($link['title']));
-                            echo '<li class="col-lg-2 col-md-2 col-sm-6 col-xs-6">
-                            <div class="albumart img-thumbnail">
-                              <div class="overlay">
-                                <a href="#">
-                                  <i class="fa fa-minus"></i><i class="fa fa-plus"></i>
-                                </a>
-                                <a href="#" class="control-play control-center">
-                                  <i class="icon-control-play"></i><i class="icon-control-pause" style="display:none;"></i>
-                                </a>
-                                <div class="overlay-share">
-                                <a href="#" data-toggle="tooltip" data-placement="top" title="Share on twitter"><i class="fa fa-twitter"></i></a>
-                                <a href="#" data-toggle="tooltip" data-placement="top" title="Share on facebook"><i class="fa fa-facebook"></i></a>
-                                </div>
-                              </div>
-                             <img class="img-responsive" src="'.$albumartLink.'" />
-                           </div>
-                          <a class="track" track-id="'.$link['id'].'" href="'.urldecode(preg_replace('/\n/','',$link['url'])).'">
-                            <div class="title">'.$linkTitle.'</div>
-                          </a>
-                          </li>';
-                          }
+                          
                           ?>
                         </ul>
                       </div>

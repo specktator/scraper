@@ -1,0 +1,9 @@
+.page_wrapper ul li:hover{
+/*   background-color: rgb(141, 213, 195); */
+/*   background-color: rgb(248, 203, 111); */
+  background-color: rgb(155, 204, 246);
+}
+#playlists li:active{
+  background-color: rgb(155, 204, 246);
+/*   background-color: rgb(248, 203, 111); */
+}

@@ -1,4 +1,25 @@
 <?php
+/*
+
+Copyright 2015 Christos Dimas <specktator@totallynoob.com>
+
+This file is part of femto.
+
+femto is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+femto is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with femto.  If not, see <http://www.gnu.org/licenses/>.
+Source: https://github.com/specktator/scraper
+
+*/
 defined('ALPHA') or die('Get Out');
 class db{
 
@@ -17,6 +38,11 @@ class db{
 
 	public function playlists(){
 		$this->parjson = new parjson('playlists.json');
+		return $this;
+	}
+
+	public function settings(){
+		$this->parjson = new parjson('settings.json');
 		return $this;
 	}
 
@@ -43,8 +69,8 @@ class db{
 	}
 
 	/*
-	*	@load_tags
-	*	@returns: null if id doesn't exist or object with the tags
+	*	load_tags
+	*	@return: null if id doesn't exist or object with the tags
 	*/
 
 	public function load_tags($id){
@@ -134,7 +160,7 @@ class db{
 				// if(@$trackObj->tags){
 					$title = (!isset($trackObj->tags->title) || empty($trackObj->tags->title))?  urldecode(basename($trackObj->url)) : $trackObj->tags->title;
 					$artist = $trackObj->tags->artist;
-					$albumart = (empty($trackObj->tags->albumart) || !isset($trackObj->tags->albumart) )? "app theme/images/vinyl2.png" : $trackObj->tags->albumart;
+					$albumart = (empty($trackObj->tags->albumart) || !isset($trackObj->tags->albumart) )? "app_theme/images/vinyl2.png" : $trackObj->tags->albumart;
 				// }
 				$tracks [] = ['id'=>$trackObj->md5,
 							'url'=>$trackObj->url,
@@ -175,7 +201,7 @@ class db{
 				// if(@$trackObj->tags){
 					$title = (!isset($trackObj->tags->title) || empty($trackObj->tags->title))?  urldecode(basename($trackObj->url)) : $trackObj->tags->title;
 					$artist = ( isset($trackObj->tags->artist) )? $trackObj->tags->artist : null;
-					$albumart = (empty($trackObj->tags->albumart) || !isset($trackObj->tags->albumart) )? "app theme/images/vinyl2.png" : $trackObj->tags->albumart;
+					$albumart = (empty($trackObj->tags->albumart) || !isset($trackObj->tags->albumart) )? "app_theme/images/vinyl2.png" : $trackObj->tags->albumart;
 				// }
 				$tracks [] = ['id'=>$trackObj->md5,
 							'url'=>$trackObj->url,
@@ -319,7 +345,7 @@ class db{
 							'url'=>$tracks[$trackIndex]->url,
 							'title'=>(!empty($tracks[$trackIndex]->tags->title))? $tracks[$trackIndex]->tags->title : urldecode(basename($tracks[$trackIndex]->url)),
 							'artist'=> @$tracks[$trackIndex]->tags->artist,
-							'albumart'=>(empty($tracks[$trackIndex]->tags->albumart) || !isset($tracks[$trackIndex]->tags->albumart) )? "app theme/images/vinyl2.png" : $tracks[$trackIndex]->tags->albumart
+							'albumart'=>(empty($tracks[$trackIndex]->tags->albumart) || !isset($tracks[$trackIndex]->tags->albumart) )? "app_theme/images/vinyl2.png" : $tracks[$trackIndex]->tags->albumart
 							];
 			}
 
@@ -373,6 +399,35 @@ class db{
 			throw new Exception("Error renaming playlist");
 			
 		}
+	}
+
+	public function read_settings(){
+
+		if($this->records->settings){
+			$this->settings = $this->records->settings;
+			$this->out = $this->settings;
+		}else{
+			throw new Exception("Error loading settings");
+			
+		}
+		return $this;
+	}
+
+	public function write_settings(){
+		try {
+			foreach ($this->settings as $property => $value) {
+				if( preg_match('/[^a-zA-Z0-9]+/',$value) ===1 && !is_bool($value)) {
+					$this->settings->{$property} = 'error';
+					throw new Exception("Error writing settings, illegal value", 500);
+				}
+			}
+			$this->records->settings = $this->settings;
+			$this->out = $this->records;
+		} catch (Exception $e) {
+			echo json_encode(['type'=>'danger', 'msg'=>$e->getMessage()]);
+			$this->out = null;
+		}
+		return $this;
 	}
 
 	public function write(){

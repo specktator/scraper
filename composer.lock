@@ -4,8 +4,56 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "94d3f6dd7ac8b6a6b8dc6bc6d74b40a1",
+    "hash": "c509c16ff569051bad0c79cd00242fd3",
     "packages": [
+        {
+            "name": "abeautifulsite/simpleimage",
+            "version": "2.5.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/claviska/SimpleImage.git",
+                "reference": "5be7b5c912b94b85b20e423b9b8bd4680ccaa53b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/claviska/SimpleImage/zipball/5be7b5c912b94b85b20e423b9b8bd4680ccaa53b",
+                "reference": "5be7b5c912b94b85b20e423b9b8bd4680ccaa53b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.5-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "abeautifulsite": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nazar Mokrynskyi",
+                    "email": "nazar@mokrynskyi.com",
+                    "homepage": "http://cleverstyle.org/",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Cory LaViska",
+                    "homepage": "http://www.abeautifulsite.net/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A PHP class that simplifies working with images",
+            "time": "2015-08-08 06:11:41"
+        },
         {
             "name": "james-heinrich/getid3",
             "version": "v1.9.9",
@@ -41,50 +89,12 @@
                 "tags"
             ],
             "time": "2014-12-18 16:39:41"
-        },
-        {
-            "name": "shubhamjain/php-id3",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/shubhamjain/PHP-ID3.git",
-                "reference": "679af31e27251694b80fd9bedcd703c21b64bd78"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/shubhamjain/PHP-ID3/zipball/0c844495829e55186fe5fc4ec48d0340444e9977",
-                "reference": "679af31e27251694b80fd9bedcd703c21b64bd78",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "PhpId3": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Shubham Jain",
-                    "email": "shubham.jain.1@gmail.com"
-                }
-            ],
-            "description": "A MP3 ID3 tags reader in native PHP",
-            "time": "2014-06-01 04:37:40"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "shubhamjain/php-id3": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

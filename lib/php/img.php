@@ -1,4 +1,27 @@
 <?php
+/*
+
+Copyright 2015 Christos Dimas <specktator@totallynoob.com>
+
+This file is part of femto.
+
+femto is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+femto is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with femto.  If not, see <http://www.gnu.org/licenses/>.
+Source: https://github.com/specktator/scraper
+
+*/
+
+
 defined('ALPHA') or die('Get Out');
 /**
 * image manipulation
@@ -9,6 +32,8 @@ class img extends functions
 
 	function __construct(){
 		$this->storePath = ROOT_PATH.'../images/';
+		$this->db = new db();
+		$this->db->settings()->read()->read_settings();
 	}
 
 	function b642img(){
@@ -35,17 +60,42 @@ class img extends functions
 
 	}
 
+	function compressImg($dest,$imgblob,$quality=75){
+	  	
+		if (class_exists('Imagick')) {
+		  	$im = new Imagick();
+			$im->readImageBlob($imgblob);
+			$im->setImageFormat('jpeg');
+			$im->setImageCompressionQuality($quality);
+			$im->writeImage($dest);
+		}else{
+			$this->db->settings->imageCompression = false;
+			$this->db->write_settings()->write();
+			throw new Exception("Imagick doesn't exist", 1);
+			
+		}
+	}
+
 	function saveImg($imgData){
 
 		$this->getImageDataType($imgData);
 		$this->getMimeType($this->decideToCache($imgData));
 
-		$fileName = $this->createFileName($imgData).$this->mimeToExtention($this->mimeType);
+		if($this->db->settings->imageCompression === true){
+			$fileName = $this->createFileName($imgData).".jpg";
+		}else{
+			$fileName = $this->createFileName($imgData).$this->mimeToExtention($this->mimeType);
+		}
 
 		if(!file_exists($fileName)){
 			try {
-				
-				file_put_contents(IMAGES_SAVE_DIR.$fileName,$imgData);
+
+				if($this->db->settings->imageCompression === true){
+					$this->compressImg(IMAGES_SAVE_DIR.$fileName,$imgData);
+				}else{
+					file_put_contents(IMAGES_SAVE_DIR.$fileName,$imgData);
+				}
+
 				return IMAGES_SAVE_DIR_REL.$fileName;
 				
 			} catch (Exception $e) {
@@ -66,7 +116,7 @@ class img extends functions
 	function getImageDataType($imgData){
 
 		/*
-			Determine Image Data Type
+			Determine Image Data Type and location
 			$imgData can be a string or **binary string**
 		*/
 		if (preg_match('/http/', $imgData) == 1) { // remote file, http url

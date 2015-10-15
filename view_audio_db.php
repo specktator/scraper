@@ -20,10 +20,10 @@ try {
     <title>view audio database | <?php echo APP_NAME; ?> | for the love of music</title>
     <meta name="generator" content="Bootply" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href="app theme/css/bootstrap.min.css" rel="stylesheet">
-    <link href="app theme/css/bootstrap-slider.min.css" rel="stylesheet">
-    <link href="app theme/css/font-awesome.min.css" rel="stylesheet">
-    <link href="app theme/css/styles.css" rel="stylesheet">
+    <link href="app_theme/css/bootstrap.min.css" rel="stylesheet">
+    <link href="app_theme/css/bootstrap-slider.min.css" rel="stylesheet">
+    <link href="app_theme/css/font-awesome.min.css" rel="stylesheet">
+    <link href="app_theme/css/styles.css" rel="stylesheet">
   </head>
   <body>
         <div id="wrapper">
@@ -80,9 +80,9 @@ try {
             </div>
         </div>
 	<!-- script references -->
-	<script src="app theme/js/jquery-2.1.4.min.js"></script>
-	<script src="app theme/js/bootstrap.min.js"></script>
-	<script src="app theme/js/bootstrap-slider.min.js"></script>
+	<script src="app_theme/js/jquery-2.1.4.min.js"></script>
+	<script src="app_theme/js/bootstrap.min.js"></script>
+	<script src="app_theme/js/bootstrap-slider.min.js"></script>
 	<script src="lib/js/player.js"></script>
 	<script src="lib/js/search.js"></script>
 	<script src="lib/js/controls.js"></script>
