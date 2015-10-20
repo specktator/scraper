@@ -61,21 +61,33 @@ try {
     <link href="app_theme/css/styles.css" rel="stylesheet">
   </head>
   <body>
-        <!-- <div id="header" class="navbar navbar-default navbar-fixed-top">
+        <div id="header" class="navbar navbar-default navbar-fixed-top">
             <div class="navbar-header">
                 <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".navbar-collapse">
-                    <i class="icon-reorder"></i>
+                    <i class="fa fa-reorder"></i>
                 </button>
                 <a class="navbar-brand" href="#">
-                    Scraper
+                    femto
                 </a>
             </div>
-            <nav class="collapse navbar-collapse">
+            <nav id="sidebar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li>
-                        <a href="#">Navbar Item 1</a>
-                    </li>
-                    <li class="dropdown">
+                        <li>
+                            <a class="list-group-item" href="#" data-value="main" tabindex="1"><i class="icon-music-tone-alt icon-1x text-success"></i> Library</a>
+                        </li>
+                        <li>
+                            <a class="list-group-item" href="#" data-value="playlists" tabindex="2"><i class="icon-playlist icon-1x text-warning"></i> Playlists</a>
+                        </li>
+                        <li>
+                            <a class="list-group-item" href="#" data-value="artists" tabindex="3"><i class="icon-users icon-1x text-danger"></i> Artists</a>
+                        </li>
+                        <li>
+                            <a class="list-group-item" href="#" data-value="genres" tabindex="4"><i class="icon-music-tone icon-1x text-info"></i> Genres</a>
+                        </li>
+                        <li>
+                            <a class="list-group-item" href="#" data-value="charts" tabindex="5"><i class="fa fa-bar-chart text-warning"></i> Charts</a>
+                        </li>
+                    <!-- <li class="dropdown">
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown">Navbar Item 2<b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">Navbar Item2 - Sub Item 1</a></li>
@@ -83,7 +95,7 @@ try {
                     </li>
                     <li>
                         <a href="#">Navbar Item 3</a>
-                    </li>
+                    </li> -->
                 </ul>
                 <ul class="nav navbar-nav pull-right">
                     <li class="dropdown">
@@ -94,11 +106,11 @@ try {
                     </li>
                 </ul>
             </nav>
-        </div> -->
+        </div>
         <div id="wrapper">
-          <div id="sidebar-wrapper" class="col-lg-1 col-md-1">
+          <div id="sidebar-wrapper" class="col-lg-1 col-md-1 hide-element">
                 <div id="sidebar">
-                    <ul class="nav list-group">
+                    <ul id="navside" class="nav list-group">
                         <li>
                             <a class="list-group-item" href="#" data-value="main" tabindex="1"><i class="icon-music-tone-alt icon-1x text-success"></i> Library</a>
                         </li>
@@ -117,7 +129,7 @@ try {
                     </ul>
                 </div>
             </div>
-            <div id="main-wrapper" class="col-lg-11 col-md-11 pull-right">
+            <div id="main-wrapper" class="col-lg-12 col-md-12">
                 <div id="main" class="page">
                   <div class="page_wrapper">
                     <div class="row page-row">
@@ -179,7 +191,7 @@ try {
                 <div id="playlists" class="page hide-page">
                   <div class="page_wrapper">
                     <div class="row page-row">
-                     <div class="playlists-list col-lg-5 col-md-5 col-sm-6 col-xs-6">
+                     <div class="playlists-list col-lg-2 col-md-2 col-sm-6 col-xs-6">
                         <ul id="playlists" class="list-group ">
 
                         </ul>
@@ -194,7 +206,7 @@ try {
                 <div id="artists" class="page hide-page">
                   <div class="page_wrapper">
                     <div class="row page-row">
-                     <div class="artists-list col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                     <div class="artists-list col-lg-2 col-md-2 col-sm-5 col-xs-5">
                         <ul id="artists" class="list-group ">
                          </ul>
                       </div>
@@ -208,7 +220,7 @@ try {
                 <div id="genres" class="page hide-page">
                   <div class="page_wrapper">
                     <div class="row page-row">
-                     <div class="genres-list col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                     <div class="genres-list col-lg-2 col-md-2 col-sm-5 col-xs-5">
                         <ul id="genres" class="list-group ">
                          </ul>
                       </div>

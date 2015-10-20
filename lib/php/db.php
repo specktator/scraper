@@ -322,6 +322,7 @@ class db{
 			throw new Exception("Empty or non printable characters provided in playlist name.");
 			
 		}
+		return $this;
 	}
 
 	public function load_playlist($id){
