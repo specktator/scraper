@@ -42,19 +42,16 @@ Source: https://github.com/specktator/scraper
 			$this->{$this->type}();
 
 		} catch (Exception $e) {
-			echo json_encode( ['type'=>'danger', 'msg'=>$e->getMessage()] );
+			echo json_encode( ['notification'=>true, 'type'=>'danger', 'msg'=>$e->getMessage()] );
 		}
 			// if($e->getCode() === 1) die();
  	}
 
  	public function loadartists(){
-
  		$this->db->load_artists()->spit_out();
-
  	}
 
  	public function loadbyartist(){
-
  		$this->db->load_by_artist($this->data['id'])->spit_out();
  	}
 
@@ -66,11 +63,18 @@ Source: https://github.com/specktator/scraper
  		$this->db->load_by_genre($this->data['id'])->spit_out();
  	}
 
- 	function stats(){}
+ 	public function playbacktimes(){
+ 		$this->db->write_playbacktimes($this->data['track-id'])->write();
+ 	}
+
  	function remove(){}
  	function delete(){}
 
-	function validate(){
+ 	public function charts(){
+ 		$this->db->load_track_charts()->spit_out();
+ 	}
+
+	private function validate(){
 
 		if(preg_match('/[a-z]/', $this->type) != 1){
 			error_log("-".$this->type);
@@ -102,15 +106,16 @@ Source: https://github.com/specktator/scraper
 
 	}
 
-	function sanitize(){
+	private function sanitize(){
 		$this->type = strtolower($this->type);
 		if(isset($this->data)){
-			@$this->data['name'] = preg_replace('/[^a-zA-Z0-9_\s]/','_',$this->data['name']); // replacing all characters except alphanumeric and underscores to underscores
-			@$this->data['trackids'] = array_filter($this->data['trackids'],function($id){return preg_match('/[0-9]+/',$id);}); //filter trackids array. values must be only numbers
+			if( @$this->data['name'] )  @$this->data['name'] = preg_replace('/[^a-zA-Z0-9_\s]/','_',$this->data['name']); // replacing all characters except alphanumeric and underscores to underscores
+			if( @$this->data['trackids'] ) @$this->data['trackids']	= array_filter($this->data['trackids'],function($id){return preg_match('/[0-9]+/',$id);}); //filter trackids array. values must be only numbers
+			if( @$this->data['track-id'] ) @$this->data['trackid'] = preg_match('/[0-9]+/',$id); //filter trackids array. values must be only numbers
 		}
 	}
 
-	function error($errormsg,$code){
+	private function error($errormsg,$code){
 		echo json_encode( ['e'=>$errormsg] );
 		throw new Exception($errormsg,$code);
 	}

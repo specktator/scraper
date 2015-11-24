@@ -27,33 +27,27 @@ try {
   </head>
   <body>
         <div id="wrapper">
-          <div id="sidebar-wrapper" class="col-md-1">
-                <div id="sidebar">
-                    <ul class="nav list-group">
-                        <li>
-                            <a class="list-group-item" href="#"><i class="icon-music-tone-alt icon-1x text-success"></i> Songs</a>
-                        </li>
-                        <li>
-                            <a class="list-group-item" href="#"><i class="icon-playlist icon-1x text-warning"></i> Playlists</a>
-                        </li>
-                        <li>
-                            <a class="list-group-item" href="#"><i class="icon-users icon-1x text-danger"></i> Artists</a>
-                        </li>
-                        <li>
-                            <a class="list-group-item" href="#"><i class="icon-music-tone icon-1x text-info"></i> Genres</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div id="main-wrapper" class="col-md-11 pull-right">
+            <div id="main-wrapper" class="col-md-12" style="background-color:white;">
                 <div id="main">
                  <table class="table table-bordered table-striped table-hover table-condensed">
-						<thead><tr><th>id</th><th>file name</th><th>md5</th><th>host</th><th>extra fields</th></tr></thead>
+						<thead><tr><th>id</th>
+              <?php
+                    foreach ($db->records->tracks as $id => $songobj) {
+                      foreach ($songobj as $key => $value) {
+                        if(!is_object($value)) $headings[] = $key;
+                      }
+                    }
+                    $headings = array_unique($headings);
+                    foreach ($headings as $key => $value) {
+                      echo "<th>{$value}</th>";
+                    }
+            ?>
+            <th>extra fields</th></tr></thead>
 					<?php
 					foreach ($db->records->tracks as $id => $songobj) {
 						foreach ($songobj as $nestedobj => $nestedvalues) {
-							if(is_object($nestedvalues) && isset($nestedvalues)){
 								$th = ""; $nth = ""; $out = "";$nestedout ="";
+              if(is_object($nestedvalues) && isset($nestedvalues)){
 								$nestedpanel = "<div class=\"panel panel-default\"><div class=\"panel-heading\">{$nestedobj}</div>";
 								$nestedheadopen = "<table class=\"table table-bordered table-striped table-hover table-condensed\"><thead><tr>";
 								$out .= "<tr class=\"info\">";
@@ -68,7 +62,7 @@ try {
 								$nestedout .= $nestedpanel.$nestedheadopen.$nth.$theadclosure.$out.$tableclosure;
 							}
 						}
-						echo "<tr><td>{$id}</td><td>".basename(urldecode($songobj->url))."</td><td>{$songobj->md5}</td><td>{$songobj->host}</td><td>{$nestedout}</td></tr>";
+						echo "<tr><td>{$id}</td><td>{$songobj->streaming}</td><td>{$songobj->url}</td><td>{$songobj->md5}</td><td>{$songobj->host}</td><td>{$nestedout}</td></tr>";
 						$nestedout = '';
 
 
@@ -76,6 +70,18 @@ try {
 					}
 					?>
 					</table>
+          <?php foreach ($db->records as $entity => $record) {
+          if($entity == 'tracks'){continue;}
+              ?>
+          <table class="table table-bordered table-striped table-hover table-condensed">
+            <thead>
+              <tr><th><h3><?php echo $entity; ?></h3></th></tr>
+              <tr><th>Name</th></th><th>associated ids</th></tr></thead>
+              <?php foreach ($record as $name => $referencesArray) {?> 
+              <tr><td><?php echo $name; ?></td><td><?php echo var_dump( $referencesArray ); ?></td></tr>
+              <?php } ?>
+          </table>
+          <?php } ?>
                 </div>
             </div>
         </div>

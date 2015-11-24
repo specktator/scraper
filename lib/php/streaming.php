@@ -23,8 +23,31 @@ Source: https://github.com/specktator/scraper
 
 class streaming {
 
-  function audio($url){
-    $path = $url;
+  private $db;
+
+  function __construct(){
+    $this->db = new db();
+    $this->db->audio()->read();
+    $this->tracks = $this->db->records->tracks;
+    // $this->db->video()->read();
+    // $this->video = $this->db->records->video;
+    // $this->type = $_REQUEST['type'];
+    $this->trackid = $_REQUEST['track-id'];
+    $this->findStreamingType();
+
+  }
+
+  function findStreamingType(){
+    if(isset($this->tracks->{$this->trackid}->url)){
+      $this->url = $this->tracks->{$this->trackid}->url;
+      $this->saudio($this->url);
+    }else{
+      throw new Exception("Error item it doesn't exist in database");
+    }
+    return $this;
+  }
+
+  function saudio($path){
 
     header('Content-type: audio/mpeg');
 
@@ -39,8 +62,8 @@ class streaming {
     readfile($path);
   }
 
-  function video($url){
-    $path = $url;
+  function svideo($path){
+
     header("Content-type: video/mpeg");
 
     header("Content-Length: ".filesize($path)); // provide file size
@@ -54,4 +77,8 @@ class streaming {
     readfile($path);
   }
 }
+
+// $s = new streaming;
+// $s->audio($_REQUEST['track-id']);
+
 ?>

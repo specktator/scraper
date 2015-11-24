@@ -41,7 +41,7 @@ class playlist
 			$this->{$this->type}();
 
 		} catch (Exception $e) {
-			echo json_encode( ['type'=>'danger', 'msg'=>$e->getMessage()] );
+			echo json_encode( ['notification'=>true, 'type'=>'danger', 'msg'=>$e->getMessage()] );
 		}
 			// if($e->getCode() === 1) die();
 
@@ -53,7 +53,7 @@ class playlist
 	function save(){
 
 		$this->db->write_playlist($this->data['name'], $this->data['trackids'])->write();
-		echo json_encode(['type'=>'success', 'element'=>'label', 'msg'=>'Saved.']);
+		echo json_encode(['notification'=>true, 'type'=>'success', 'element'=>'label', 'msg'=>'Saved.']);
 
 	}
 	
@@ -70,17 +70,17 @@ class playlist
 
 	function rename(){
 		$this->db->rename_playlist($this->data['id'],$this->data['name']);
-		echo json_encode(['type'=>'success', 'msg'=>'Renamed.']);
+		echo json_encode(['notification'=>true, 'type'=>'success', 'msg'=>'Renamed.']);
 	}
 
 	function stats(){}
 
 	function delete(){
 		$this->db->delete_playlist($this->data['id'])->write();
-		echo json_encode(['type'=>'success', 'msg'=>'Deleted.']);
+		echo json_encode(['notification'=>true, 'type'=>'success', 'msg'=>'Deleted.']);
 	}
 
-	function validate(){
+	private function validate(){
 
 		if(preg_match('/[a-z]/', $this->type) != 1){
 			error_log("-".$this->type);
@@ -112,7 +112,7 @@ class playlist
 
 	}
 
-	function sanitize(){
+	private function sanitize(){
 		$this->type = strtolower($this->type);
 		if(isset($this->data)){
 			@$this->data['name'] = preg_replace('/[^a-zA-Z0-9_\s]/','_',$this->data['name']); // replacing all characters except alphanumeric and underscores to underscores
@@ -120,7 +120,7 @@ class playlist
 		}
 	}
 
-	function error($errormsg,$code){
+	private function error($errormsg,$code){
 		echo json_encode( ['e'=>$errormsg] );
 		throw new Exception($errormsg,$code);
 	}

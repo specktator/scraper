@@ -33,7 +33,7 @@ define('IMAGES_CACHE_DIR',__DIR__.'/images/.cache/');
 define('IMAGES_CACHE_DIR_REL',ROOT_REL_PATH.'/images/.cache/');
 
 define('IMAGES_SAVE_DIR',__DIR__.'/images/');
-define('IMAGES_SAVE_DIR_REL',ROOT_REL_PATH.'/images/');
+define('IMAGES_SAVE_DIR_REL','/images/');
 
 define('AUDIO_CACHE_DIR',__DIR__.'/music/.cache/');
 define('AUDIO_CACHE_DIR_REL',ROOT_REL_PATH.'/music/.cache/');
@@ -52,8 +52,10 @@ define('NORMAL_EXEC_TIME','30');
 
 /* ini file */
 // ini_set('memory_limit', '30MB');
-// ini_set('display_errors',1);
-// error_reporting(-1);
+error_reporting(E_ALL);
+// ini_set('error_log', '/full/path/to/your/file/my-errors.log'); 
+ini_set('display_errors',1);
+error_reporting(-1);
 /*  autload files */
 
 function autoload($className,$path='lib/'){

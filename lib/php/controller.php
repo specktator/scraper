@@ -59,7 +59,15 @@ class controller
 
 	function action(){
 
-		$this->model = new $this->request['action']();
+		if(class_exists($this->request['action'])){
+
+			$this->model = new $this->request['action']();
+			
+		}else{
+
+			throw new Exception("Error controller: class does not exist.");
+			
+		}
 		// return $this;
 	}
 }

@@ -36,45 +36,48 @@ class id3 extends functions
 	function __construct()
 	{
 		// set_time_limit('120');
-		$this->filename = urldecode($_REQUEST['url']);
 		$this->trackid = $_REQUEST['track-id'];
 		$this->validate(); 
 		$this->getID3 = new getID3; // Initialize getID3 engine
 		$this->img = new img(); // Initialize img class
+		$this->db = new db(); // Init DB
 		$this->getMeta();
 		
 	}
 
-	function validate(){
+	function validate()
+	{
 		if (preg_match('/[a-z0-9]+/',$this->trackid) != 1) {
 			$this->error('track-id is not valid.',1);
 		}
 
-		if(preg_match('/http\:\/\//',$this->filename) != 1){
-
-			$this->error('url is not valid.',1);
-		}
-
-		// if (filter_var($this->filename,FILTER_VALIDATE_URL)) {
-
-		// }else{
-			// $this->filename = FALSE;
-			// error_log('id3: error: not valid url');
-			// json_encode(array('e'=>'id3: error: not valid url'));
-			// die();
-		// }
 	}
 
-	function getMeta(){
+	private function getFilePath()
+	{
+		$this->filePath = $this->db->records->tracks->{$this->trackid}->url;
+
+		if(!$this->filePath){
+			throw new Exception("Track doesn't exist.", 1);
+		}
+	}
+
+	function getMeta()
+	{
 
 		try{
 			// FIRST TRY LOCAL JSON DATABASE AND THEN INIT THE REQUEST
+
 			if(!$this->getMetaJson()){
+
+				$this->getFilePath();
 				$this->decideToCache();
+
 				set_time_limit(ID3_EXEC_TIME);
-				$tags = $this->getID3->analyze($this->filename);
+				$tags = $this->getID3->analyze($this->filePath);
 				getid3_lib::CopyTagsToComments($tags);
 				set_time_limit(NORMAL_EXEC_TIME);
+
 				$artist = ($tags['comments']['artist'][0])? $tags['comments']['artist'][0] : null;
 				$title = ($tags['comments']['title'][0])? $tags['comments']['title'][0] : null;
 				$album = ($tags['comments']['album'][0])? $tags['comments']['album'][0] : null;
@@ -84,55 +87,70 @@ class id3 extends functions
 				$tagsArray = ['trackid'=>$this->trackid, 'artist'=>$artist, 'title'=>$title, 'album'=>$album,'genre'=>$genre,'albumart'=>$albumart];
 				
 				//writing found tags in db
-				$db = new db();
-				$db->audio()->read()->write_tags($tagsArray)->write();
-				echo json_encode($tagsArray);
-				unset($db);
+				
+				$this->db->audio()->read()->write_tags($tagsArray)->write(); // write to db
+				echo json_encode($tagsArray); //echoing from here not from the DB
+
 			}
 		}catch (Exception $e){
 			echo json_encode(array('e'=>$e->getMessage(),'msg'=>'Can\'t load ID3 tags', 'title'=>basename(urldecode($_REQUEST['url']))));
 			// if track doent have valid id3 tags then leave it as is.
 		}
-		@unlink($this->filename);
+		@unlink($this->tempfile);
 	}
 
 	function setMeta(){} // will set meta tags from user input? / retrieved from search engines? / meta tags online libraries?
 
-	function getMetaJson(){
+	function getMetaJson()
+	{
 
 		try {
-			$db = new db();
-			$db->audio()->read()->load_tags($this->trackid);
-			if(!empty($db->tags)){
-				
+			$this->db->audio()->read()->load_tags($this->trackid);
+			if(!empty($this->db->tags)){
 
-				echo json_encode($db->tags);
+				echo json_encode($this->db->tags);
 				return TRUE;
 			}
-			unset($db);
 
-		} catch (Exception $e) {
+		} catch (Exception $e){
+
 			echo json_encode(array('e'=>$e->getMessage()));
 			return FALSE;
 		}
 
 	}
 
-	function decideToCache(){
-		$urlType = preg_match('/'.$_SERVER['SERVER_NAME'].'/', $this->filename);
-		if($urlType == 1){ // local url
-			$this->filename = $this->saveTempFile(preg_replace('/\s/','%20',$this->filename)); // to be continued, don't re-download a local file via http
-		}elseif ($urlType == 0) {// remote url
-			try {
-				$this->filename = $this->saveTempFile(preg_replace('/\s/','%20',$this->filename));
-			} catch (Exception $e) {
-				echo json_encode(array('e'=>$e->getMessage()));
-			}
+	function decideToCache()
+	{
+
+		if(preg_match('/http\:\/\/(.*)'.$_SERVER['SERVER_NAME'].'(.*)/', $this->filePath) == 1){
+
+			$urlType = 'local';
+
+		}elseif (preg_match('/http\:\/\/(.*)(.*)/', $this->filePath) == 1) {
+
+			$urlType = 'remote';
+
+		}elseif (preg_match('/http\:\/\/(.*)(.*)/', $this->filePath) == 0 && file_exists($this->filePath)) {
+
+			$urlType = 'file';
+
+		}
+
+		if(array_search($urlType,['local','remote']) ){ // local url, accessible from the web
+
+			$this->filePath = $this->saveTempFile(preg_replace('/\s/','%20',$this->filePath)); // to be continued, don't re-download a local file via http
+
+		}elseif ($urlType == 'file') {
+			
+			$this->filePath = $this->filePath;
+
 		}
 	}
 
-	function error($errormsg,$fatal){
-		echo json_encode(array('e'=>$errormsg));
+	function error($errormsg,$fatal)
+	{
+		echo json_encode( ['notification'=>true, 'type'=>'danger', 'msg'=>$errormsg] );
 		throw new Exception($errormsg);
 		if($fatal === 1) die();
 	}

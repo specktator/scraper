@@ -67,7 +67,7 @@ try {
                     <i class="fa fa-reorder"></i>
                 </button>
                 <a class="navbar-brand" href="#">
-                    femto
+                    <img id="navlogo" class="logo img-responsive" src="app_theme/images/femto_transparent.png">
                 </a>
             </div>
             <nav id="sidebar" class="collapse navbar-collapse">
@@ -168,7 +168,7 @@ try {
                       </div>
                       <div id="queue_wrapper" class="col-lg-4 col-md-4 hide-element">
                           <div id="queue" class="panel panel-default playlists-tracks">
-                              <div class="panel-heading">Queue</div>
+                              <div class="panel-heading">Play Queue</div>
                               <div class="panel-body">
                                   <p>Drag 'n' Drop songs below </p>
                               </div> <!-- panel body -->
@@ -235,18 +235,11 @@ try {
                   <div class="page_wrapper">
                     <div class="row">
                      <div class="charts-list col-lg-5 col-md-5 col-sm-5 col-xs-5">
-                        <ul id="charts" class="list-group ">
-                          <li class="list-group-item"><a href="#" id="allartists">All</a></li>
-                        <?php
-             //           $artists = array_unique(array_filter(array_map(function($value){
-                    //  return is_object($value) ? @$value->artist : @$value['artist'];
-                    // }, $tagsArray),function($value){
-                    //  return (empty($value))? FALSE : TRUE;
-                    // }));
-             //           foreach ( $artists as $songid => $name) {
-             //             flush();
-             //             echo '<li class="list-group-item"><a href="#" data-value="'.$name.'">'.$name.'</a></li>';
-                        //}?>
+                        <ul id="trackCharts" class="list-group ">
+                        </ul>
+                      </div>
+                     <div class="charts-list col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                        <ul id="playlistCharts" class="list-group ">
                         </ul>
                       </div>
                     </div>

@@ -82,8 +82,15 @@ a:hover{
     border:none;
     border-bottom: 1px solid #333;
 }
+.navbar-brand{
+    padding: 2px 5px 2px 22px;
+}
 .dropdown:hover .dropdown-menu {
     display: block;
+}
+#navlogo{
+    width:190px;
+    height:auto;
 }
 #wrapper {
     min-height: 100%;
@@ -144,7 +151,8 @@ a:hover{
 
 @media (max-width: 992px) {
     #main-wrapper {
-        padding-top: 0px;
+        padding-top: 60px;
+        padding-left: 3%;
     }
 }
 
@@ -191,7 +199,7 @@ ul#playlist li {
     padding: 6px;
     float: left;
     color: #000000;
-    min-height:37.5%;
+    /*min-height:37.5%;*/
 }
 
 a.track {
@@ -1528,7 +1536,7 @@ ul.list-group{
 
 .alert-fixed{
     position: absolute;
-    top:2%;
+    top:7%;
     right:1%;
     z-index: 999;
 }

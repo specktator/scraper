@@ -1,8 +1,21 @@
-{
+    {
 	"folders":
 	[
 		{
-			"path": "/var/www/scraper"
+            "follow_symlinks": true,
+			"path": "/media/kolpo/sapios/femto/www"
 		}
-	]
+	],
+    "settings": {
+        "xdebug": {
+             "path_mapping": {
+                  "/var/www/" : "/media/kolpo/sapios/femto/www/"
+             },
+             "url": "http://femto.local/",
+             "ide_key": "sublime.xdebug",
+             "super_globals": true,
+             "close_on_stop": true,
+             "max_depth":1000
+        }
+    }
 }
