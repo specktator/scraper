@@ -1,3 +1,4 @@
+
 <?php
 /*
 
@@ -380,7 +381,7 @@ class db{
 		try {
 			
 		  	foreach ($this->records->tracks as $id => $track) {
-		  		$stats[$id] = (int)$track->stats->playbacks;
+		  		$stats[$id] = @(int)$track->stats->playbacks;
 
 		  	}
 			arsort($stats);
@@ -478,7 +479,7 @@ class db{
 	public function delete_playlist($id){
 		try {
 			unset($this->records->playlists->{$id});
-			$this->records->playlists = array_values($this->records->playlists);
+			// $this->records->playlists = array_values($this->records->playlists);
 			$this->out = $this->records;
 
 		} catch (Exception $e) {

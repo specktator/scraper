@@ -86,6 +86,7 @@ class playlist
 			error_log("-".$this->type);
 			$this->error('type is not valid',1);
 		}
+		
 
 		if (!empty($this->data['trackids'])) {
 				

@@ -233,7 +233,7 @@ try {
                 </div>
                 <div id="charts" class="page hide-page">
                   <div class="page_wrapper">
-                    <div class="row">
+                    <div class="row page-row">
                      <div class="charts-list col-lg-5 col-md-5 col-sm-5 col-xs-5">
                         <ul id="trackCharts" class="list-group ">
                         </ul>

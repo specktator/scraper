@@ -1,3 +1,4 @@
+
 <?php
 /*
 
@@ -36,18 +37,26 @@ class id3 extends functions
 	function __construct()
 	{
 		// set_time_limit('120');
-		$this->trackid = $_REQUEST['track-id'];
-		$this->validate(); 
-		$this->getID3 = new getID3; // Initialize getID3 engine
-		$this->img = new img(); // Initialize img class
-		$this->db = new db(); // Init DB
-		$this->getMeta();
+		
+		// try {
+
+			$this->trackid = $_REQUEST['track-id'];
+			$this->validate(); // validate input
+			$this->getID3 = new getID3; // Initialize getID3 engine
+			$this->img = new img(); // Initialize img class
+			$this->db = new db(); // Init DB
+			$this->getMeta();
+			
+		// } catch (Exception $e) {
+			// echo json_encode( ['notification'=>true, 'type'=>'danger', 'msg'=>$e->getMessage()] );
+			// if($e->getCode() === 1) die();
+		// }
 		
 	}
 
 	function validate()
 	{
-		if (preg_match('/[a-z0-9]+/',$this->trackid) != 1) {
+		if (preg_match('/[^a-z0-9]+/',$this->trackid) == 1) {
 			$this->error('track-id is not valid.',1);
 		}
 
@@ -93,7 +102,7 @@ class id3 extends functions
 
 			}
 		}catch (Exception $e){
-			echo json_encode(array('e'=>$e->getMessage(),'msg'=>'Can\'t load ID3 tags', 'title'=>basename(urldecode($_REQUEST['url']))));
+			echo json_encode(['notification'=>true, 'type'=>'danger', 'msg'=>$e->getMessage()]);
 			// if track doent have valid id3 tags then leave it as is.
 		}
 		@unlink($this->tempfile);
@@ -114,7 +123,7 @@ class id3 extends functions
 
 		} catch (Exception $e){
 
-			echo json_encode(array('e'=>$e->getMessage()));
+			echo json_encode(['notification'=>true, 'type'=>'danger', 'msg'=>$e->getMessage()]);
 			return FALSE;
 		}
 
@@ -150,9 +159,7 @@ class id3 extends functions
 
 	function error($errormsg,$fatal)
 	{
-		echo json_encode( ['notification'=>true, 'type'=>'danger', 'msg'=>$errormsg] );
 		throw new Exception($errormsg);
-		if($fatal === 1) die();
 	}
 }
 ?>

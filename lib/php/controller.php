@@ -60,8 +60,13 @@ class controller
 	function action(){
 
 		if(class_exists($this->request['action'])){
-
-			$this->model = new $this->request['action']();
+			try {
+				
+				$this->model = new $this->request['action']();
+				
+			} catch (Exception $e) {
+				echo json_encode( ['notification'=>true, 'type'=>'danger', 'msg'=>$e->getMessage()] );
+			}
 			
 		}else{
 
