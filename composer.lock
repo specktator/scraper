@@ -5,22 +5,24 @@
         "This file is @generated automatically"
     ],
     "hash": "c509c16ff569051bad0c79cd00242fd3",
+    "content-hash": "ce51e5bb46254b2745c334a9add41e4b",
     "packages": [
         {
             "name": "abeautifulsite/simpleimage",
-            "version": "2.5.6",
+            "version": "2.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/claviska/SimpleImage.git",
-                "reference": "5be7b5c912b94b85b20e423b9b8bd4680ccaa53b"
+                "reference": "a8fb6f68d12f32e3394a2784c3a8c500bc24cdec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/claviska/SimpleImage/zipball/5be7b5c912b94b85b20e423b9b8bd4680ccaa53b",
-                "reference": "5be7b5c912b94b85b20e423b9b8bd4680ccaa53b",
+                "url": "https://api.github.com/repos/claviska/SimpleImage/zipball/a8fb6f68d12f32e3394a2784c3a8c500bc24cdec",
+                "reference": "a8fb6f68d12f32e3394a2784c3a8c500bc24cdec",
                 "shasum": ""
             },
             "require": {
+                "ext-gd": "*",
                 "php": ">=5.3.0"
             },
             "type": "library",
@@ -52,20 +54,20 @@
                 }
             ],
             "description": "A PHP class that simplifies working with images",
-            "time": "2015-08-08 06:11:41"
+            "time": "2015-10-22 19:13:41"
         },
         {
             "name": "james-heinrich/getid3",
-            "version": "v1.9.9",
+            "version": "v1.9.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JamesHeinrich/getID3.git",
-                "reference": "c34fb84e295477cc1865b2ea4dad2d13452058d1"
+                "reference": "da7c657f2bcc865ef1bef53cf90c2638f344469b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JamesHeinrich/getID3/zipball/c34fb84e295477cc1865b2ea4dad2d13452058d1",
-                "reference": "c34fb84e295477cc1865b2ea4dad2d13452058d1",
+                "url": "https://api.github.com/repos/JamesHeinrich/getID3/zipball/da7c657f2bcc865ef1bef53cf90c2638f344469b",
+                "reference": "da7c657f2bcc865ef1bef53cf90c2638f344469b",
                 "shasum": ""
             },
             "require": {
@@ -88,7 +90,7 @@
                 "php",
                 "tags"
             ],
-            "time": "2014-12-18 16:39:41"
+            "time": "2015-12-24 10:50:02"
         }
     ],
     "packages-dev": [],

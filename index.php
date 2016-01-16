@@ -308,11 +308,14 @@ try {
     <script src="app_theme/js/bootstrap.min.js"></script>
     <script src="app_theme/js/bootstrap-slider.min.js"></script>
     <script src="app_theme/js/jquery-ui.min.js"></script>
+    <script src="vendor/assets/js/js-logger/src/logger.min.js"></script>
+    <script src="vendor/assets/js/jQuery.Hotkeys/jquery.hotkeys.js"></script>
     <script src="lib/js/player.js"></script>
     <script src="lib/js/controls.js"></script>
     <script src="lib/js/navigation.js"></script>
     <script src="lib/js/search.js"></script>
     <script src="lib/js/sortdragdrop.js"></script>
+    <script src="lib/js/keyboardShortcuts.js"></script>
   </body>
   </html>
   

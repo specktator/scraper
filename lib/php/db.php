@@ -503,6 +503,30 @@ class db{
 	}
 
 	public function update_playlist_stats(){}
+	
+	public function update_playlist( $id, array $trackids)
+	{
+		/*
+			will update trackids order and insertions/deletions
+		 */
+		
+		if( is_string( $id ) && $trackids ) {
+			
+			try {
+				$this->checkDupes($id,'playlists');
+				@$this->records->playlists->{$id}->trackids = $trackids;
+			} catch (Exception $e) {
+				throw new Exception( $e->getMessage() );
+			}
+
+			$this->out = $this->records;
+
+		}else{
+			throw new Exception("Empty playlist id or trackids array.");
+			
+		}
+		return $this;
+	}
 
 	public function read_settings(){
 

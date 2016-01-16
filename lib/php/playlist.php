@@ -80,6 +80,11 @@ class playlist
 		echo json_encode(['notification'=>true, 'type'=>'success', 'msg'=>'Deleted.']);
 	}
 
+	function update(){
+		$this->db->update_playlist($this->data['id'],$this->data['trackids'])->write();
+		echo json_encode(['notification'=>true, 'type'=>'success', 'msg'=>'Playlist Updated.']);
+	}
+
 	private function validate(){
 
 		if(preg_match('/[a-z]/', $this->type) != 1){

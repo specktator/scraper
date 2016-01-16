@@ -51,6 +51,7 @@ class parjson
 			return json_decode(file_get_contents($this->filename));
 		}else{
 			error_log("psrjson:: error:: reading");
+			throw new Exception(_CLASS__.": ".__METHOD__.": Error writing to DB", 1);
 			return FALSE;
 		}
 	}
@@ -60,7 +61,12 @@ class parjson
 		// fseek($this->handle,0);
 		// ftruncate($this->handle, filesize($this->filename));
 		// if(!fwrite($this->handle, $data)){error_log("parjson:: error :: writing");}
-		file_put_contents($this->filename,$data);
+		$result = file_put_contents($this->filename,$data, LOCK_EX );
+		if ( $result === FALSE) {
+			error_log(_CLASS__.": ".__METHOD__.": Error writing to DB");
+			throw new Exception(_CLASS__.": ".__METHOD__.": Error writing to DB", 1);
+
+		}
 	}
 
 	function close(){

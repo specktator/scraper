@@ -1,0 +1,7 @@
+{
+    "name": "MyProject",
+    "dependencies": {
+        "js-logger": "1.2.0",
+        "jQuery.Hotkeys": "0.2.0"
+    }
+}
